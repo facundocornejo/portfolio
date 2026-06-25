@@ -18,6 +18,87 @@
       Si lo que viste te sirve, hablemos. Respondo en menos de 24h.
     </p>
 
+    {/* Contact form (Netlify Forms) */}
+    <form
+      name="contacto"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      id="contact-form"
+      class="contact-form scroll-fade text-left mb-10"
+      style="--stagger: 0.08s;"
+    >
+      <input type="hidden" name="form-name" value="contacto" />
+      {/* Honeypot field — hidden from humans */}
+      <p class="hidden" aria-hidden="true">
+        <label>No llenar: <input name="bot-field" /></label>
+      </p>
+
+      <div class="form-field">
+        <label for="cf-name" class="form-label" data-i18n-key="contact.form.name">Nombre</label>
+        <input
+          type="text"
+          name="name"
+          id="cf-name"
+          required
+          autocomplete="name"
+          class="form-input"
+          data-i18n-placeholder="contact.form.name"
+          placeholder="Nombre"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="cf-email" class="form-label" data-i18n-key="contact.form.email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="cf-email"
+          required
+          autocomplete="email"
+          class="form-input"
+          placeholder="tu@email.com"
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="cf-message" class="form-label" data-i18n-key="contact.form.message">Mensaje</label>
+        <textarea
+          name="message"
+          id="cf-message"
+          required
+          rows="5"
+          class="form-input"
+          data-i18n-placeholder="contact.form.message"
+          placeholder="Mensaje"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="contact-submit" id="contact-submit">
+        <span class="submit-text" data-i18n-key="contact.form.send">Enviar mensaje</span>
+      </button>
+
+      <p
+        class="form-status hidden"
+        id="form-status"
+        role="status"
+        aria-live="polite"
+      ></p>
+    </form>
+
+    {/* Divider */}
+    <div class="flex items-center gap-4 mb-10 scroll-fade" style="--stagger: 0.1s;">
+      <hr class="flex-1" style="border-color: var(--color-border);" />
+      <span
+        class="text-xs font-mono uppercase tracking-wider"
+        style="color: var(--color-text-muted);"
+        data-i18n-key="contact.or"
+      >
+        O encontrame en
+      </span>
+      <hr class="flex-1" style="border-color: var(--color-border);" />
+    </div>
+
     {/* Email CTA */}
     <div class="scroll-fade mb-10" style="--stagger: 0.1s;">
       <button
@@ -34,19 +115,6 @@
         </svg>
         <span class="btn-text">facundocornejodediego@gmail.com</span>
       </button>
-    </div>
-
-    {/* Divider */}
-    <div class="flex items-center gap-4 mb-10 scroll-fade" style="--stagger: 0.15s;">
-      <hr class="flex-1" style="border-color: var(--color-border);" />
-      <span
-        class="text-xs font-mono uppercase tracking-wider"
-        style="color: var(--color-text-muted);"
-        data-i18n-key="contact.or"
-      >
-        O encontrame en
-      </span>
-      <hr class="flex-1" style="border-color: var(--color-border);" />
     </div>
 
     {/* Social links */}
@@ -132,9 +200,101 @@
     background-color: var(--color-accent-light);
   }
 
+  /* ---- Contact form ---- */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .form-label {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.625rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .form-input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.6;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent);
+  }
+
+  textarea.form-input {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  .contact-submit {
+    align-self: flex-start;
+    padding: 0.75rem 1.75rem;
+    border-radius: 0.625rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    background-color: var(--color-accent);
+    color: white;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.15s ease,
+      opacity 0.2s ease;
+  }
+
+  .contact-submit:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+  }
+
+  .contact-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .form-status {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .form-status.is-success {
+    color: var(--color-accent);
+  }
+
+  .form-status.is-error {
+    color: #ef4444;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .contact-email-btn:hover,
-    .contact-social:hover {
+    .contact-social:hover,
+    .contact-submit:hover {
       transform: none;
     }
   }
@@ -161,6 +321,57 @@
       const key = el.dataset.i18nKey as keyof (typeof ui)['es'];
       if (key && ui[locale]?.[key]) {
         el.textContent = ui[locale][key];
+      }
+    });
+
+    // Update input/textarea placeholders
+    const placeholderEls = document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+      '#contact [data-i18n-placeholder]',
+    );
+    placeholderEls.forEach((el) => {
+      const key = el.dataset.i18nPlaceholder as keyof (typeof ui)['es'];
+      if (key && ui[locale]?.[key]) {
+        el.placeholder = ui[locale][key];
+      }
+    });
+  }
+
+  // Netlify Forms — AJAX submit with inline feedback
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = document.getElementById('form-status') as HTMLElement;
+    const submitBtn = document.getElementById('contact-submit') as HTMLButtonElement;
+    const submitText = submitBtn?.querySelector('.submit-text') as HTMLElement;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const locale = (document.documentElement.lang || 'es') as Locale;
+
+      submitBtn.disabled = true;
+      if (submitText) submitText.textContent = ui[locale]['contact.form.sending'];
+      status.classList.add('hidden');
+      status.classList.remove('is-success', 'is-error');
+
+      try {
+        const data = new FormData(form);
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data as any).toString(),
+        });
+        if (!res.ok) throw new Error('submit failed');
+
+        status.textContent = ui[locale]['contact.form.success'];
+        status.classList.add('is-success');
+        status.classList.remove('hidden');
+        form.reset();
+      } catch {
+        status.textContent = ui[locale]['contact.form.error'];
+        status.classList.add('is-error');
+        status.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        if (submitText) submitText.textContent = ui[locale]['contact.form.send'];
       }
     });
   }
