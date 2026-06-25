@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# internal planning docs — kept local, not published
+auditoria-portfolio-fromdevdiego.md
+portfolio-context.md
+portfolio-fixes.md

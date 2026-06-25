@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Portfolio personal de Facundo — Fullstack Developer de Paraná, Argentina. Sitio bilingue (ES/EN) con dark/light mode. Ver `portfolio-context.md` para el brief completo (proyectos, dirección visual, assets).
+Portfolio personal de Facundo — Fullstack Developer de Paraná, Argentina. Sitio bilingue (ES/EN) con dark/light mode.
 
 ## Tech Stack
 
