@@ -1,0 +1,91 @@
+---
+---
+
+<button
+  type="button"
+  aria-label="Toggle dark mode"
+  class="theme-toggle-btn relative p-2 rounded-lg transition-colors duration-200"
+  style="color: var(--color-text-secondary);"
+>
+  <!-- Sun icon (shown in dark mode) -->
+  <svg
+    class="icon-sun hidden size-5"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  <!-- Moon icon (shown in light mode) -->
+  <svg
+    class="icon-moon hidden size-5"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</button>
+
+<script is:inline>
+  (function () {
+    if (window.__themeToggleInit) return;
+    window.__themeToggleInit = true;
+
+    var html = document.documentElement;
+
+    function updateAllIcons() {
+      var isDark = html.dataset.theme === 'dark';
+      var buttons = document.querySelectorAll('.theme-toggle-btn');
+      buttons.forEach(function (btn) {
+        var sun = btn.querySelector('.icon-sun');
+        var moon = btn.querySelector('.icon-moon');
+        if (sun) sun.classList.toggle('hidden', !isDark);
+        if (moon) moon.classList.toggle('hidden', isDark);
+      });
+    }
+
+    // Event delegation — works for buttons added later
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.theme-toggle-btn');
+      if (!btn) return;
+      var next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+      html.dataset.theme = next;
+      html.style.colorScheme = next;
+      localStorage.setItem('theme', next);
+      updateAllIcons();
+    });
+
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', function (e) {
+        if (!localStorage.getItem('theme')) {
+          var theme = e.matches ? 'dark' : 'light';
+          html.dataset.theme = theme;
+          html.style.colorScheme = theme;
+          updateAllIcons();
+        }
+      });
+
+    // Update icons now and again after hydration
+    updateAllIcons();
+    window.addEventListener('astro:load', updateAllIcons);
+    setTimeout(updateAllIcons, 500);
+  })();
+</script>

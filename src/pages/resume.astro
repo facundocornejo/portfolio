@@ -1,0 +1,347 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+
+const experience = [
+  {
+    role: { es: 'Frontend Developer', en: 'Frontend Developer' },
+    company: 'Lindigo (Proyecto Azopardo)',
+    companyEn: 'Lindigo (Azopardo Project)',
+    period: { es: 'Jun 2025 — Mar 2026', en: 'Jun 2025 — Mar 2026' },
+    description: {
+      es: [
+        'Desarrollo y mantenimiento de plataforma de gestión para clubes sociales y deportivos con Angular 18',
+        'Implementación de módulos de pago y portales de socios con arquitectura de componentes reutilizable y escalable',
+        'Trabajo en equipo bajo metodologías ágiles con ciclos de entrega semanales',
+      ],
+      en: [
+        'Built and maintained a management platform for sports and social clubs using Angular 18',
+        'Developed payment modules and member portals with reusable, scalable component architecture',
+        'Collaborated in agile team with weekly delivery cycles',
+      ],
+    },
+  },
+  {
+    role: { es: 'Fullstack Developer', en: 'Fullstack Developer' },
+    company: 'Proyectos Independientes & Freelance',
+    companyEn: 'Independent & Freelance Projects',
+    period: { es: 'Ene 2024 — Presente', en: 'Jan 2024 — Present' },
+    description: {
+      es: [
+        'ULTRA ERP: Sistema integral con Next.js, Supabase y shadcn/ui. Asistente IA con RAG (Gemini 2.0 Flash + pgvector) que redujo consultas de stock de minutos a segundos',
+        'Beast Motors: Catálogo digital con Next.js y Supabase. Optimización SEO mediante ISR y Schema.org en plataforma mobile-first',
+        'Flight Price Bot: Automatización en Python con GitHub Actions (Cron) para monitoreo de precios aéreos y alertas vía Telegram. Infraestructura $0',
+      ],
+      en: [
+        'ULTRA ERP: End-to-end system built with Next.js, Supabase, and shadcn/ui. AI assistant with RAG (Gemini 2.0 Flash + pgvector) reduced stock queries from minutes to seconds',
+        'Beast Motors: Digital catalog for a car dealership with Next.js and Supabase. SEO optimization via ISR and Schema.org on a mobile-first platform',
+        'Flight Price Bot: Python automation deployed with GitHub Actions (Cron) for airfare monitoring and Telegram alerts. $0 infrastructure cost',
+      ],
+    },
+  },
+  {
+    role: { es: 'Atención al Cliente y Gestión Administrativa', en: 'Customer Service & Administrative Management' },
+    company: 'SupleYA',
+    companyEn: 'SupleYA',
+    period: { es: 'Dic 2023 — Mar 2025', en: 'Dec 2023 — Mar 2025' },
+    description: {
+      es: [
+        'Gestión operativa de ventas y contabilidad. Identifiqué ineficiencias de stock que derivaron en el relevamiento funcional y desarrollo del sistema ULTRA ERP',
+      ],
+      en: [
+        'Managed sales operations and branch accounting. Identified stock inefficiencies that led to the functional analysis and development of the ULTRA ERP system',
+      ],
+    },
+  },
+];
+
+const featuredProject = {
+  title: { es: 'Adoptly | TFI — UTN FR Paraná', en: 'Adoptly | Final Project — UTN FR Paraná' },
+  items: {
+    es: [
+      'Plataforma de adopción animal deployada y en uso por 4 ONGs reales de Paraná',
+      'Clean Architecture: React + API REST con Node.js/Express, Prisma y Supabase. Documentación Swagger, JWT y tests de carga con k6',
+    ],
+    en: [
+      'Animal adoption platform deployed and actively used by 4 real NGOs in Paraná',
+      'Clean Architecture: React + REST API with Node.js/Express, Prisma, and Supabase. Swagger docs, JWT auth, and load testing with k6',
+    ],
+  },
+};
+
+const education = [
+  {
+    title: { es: 'Tecnicatura Universitaria en Programación', en: 'Associate Degree in Programming' },
+    institution: 'UTN FR Paraná',
+    detail: { es: 'Graduado', en: 'Graduated' },
+  },
+  {
+    title: { es: 'Tecnicatura en Comercio Exterior', en: 'Associate Degree in Foreign Trade' },
+    institution: 'UADER',
+    detail: { es: '95% completado', en: '95% completed' },
+  },
+];
+
+const skills = {
+  'Frontend': ['Angular 18', 'React', 'Next.js', 'Astro', 'shadcn/ui', 'Tailwind CSS'],
+  'Backend': ['Node.js', 'Express', 'C# / .NET', 'Python', 'Prisma ORM'],
+  'AI & Data': ['Gemini 2.0 Flash', 'pgvector', 'HuggingFace', 'Supabase', 'RAG'],
+  'DevOps & Tools': ['GitHub Actions', 'Git', 'Docker', 'Vercel', 'Claude Code', 'Cursor'],
+};
+---
+
+<Layout
+  title="Facundo Cornejo — CV / Currículum"
+  description="Currículum de Facundo Cornejo — Fullstack Developer de Paraná, Argentina. React, Next.js, Angular, TypeScript."
+>
+  <Header />
+  <main class="pt-16">
+    <section class="py-16 sm:py-24 px-4">
+      <div class="mx-auto max-w-3xl">
+        {/* Header */}
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-12">
+          <div>
+            <h1
+              class="text-3xl sm:text-4xl font-bold mb-1"
+              style="color: var(--color-text-primary);"
+            >
+              Facundo Cornejo
+            </h1>
+            <p class="text-lg font-mono" style="color: var(--color-accent);">
+              Fullstack Developer
+            </p>
+            <p class="text-sm mt-1" style="color: var(--color-text-muted);">
+              <span data-locale-es>Paraná, Argentina · Ciudadanía Española (UE)</span>
+              <span data-locale-en class="hidden">Paraná, Argentina · Spanish (EU) Citizenship</span>
+            </p>
+          </div>
+          <a
+            href="/cv/facundo-resume-es.pdf"
+            download
+            class="resume-download-btn"
+            data-cv-link
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span data-i18n-key="resume.download">Descargar PDF</span>
+          </a>
+        </div>
+
+        {/* Experience */}
+        <div class="mb-12">
+          <h2
+            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            style="color: var(--color-accent);"
+            data-i18n-key="resume.experience"
+          >
+            Experiencia
+          </h2>
+          <div class="space-y-8">
+            {experience.map((job) => (
+              <div class="resume-entry">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+                  <h3 class="text-base font-semibold" style="color: var(--color-text-primary);">
+                    <span data-locale-es>{job.role.es}</span>
+                    <span data-locale-en class="hidden">{job.role.en}</span>
+                    <span style="color: var(--color-text-muted);">
+                      {' — '}
+                      <span data-locale-es>{job.company}</span>
+                      <span data-locale-en class="hidden">{job.companyEn}</span>
+                    </span>
+                  </h3>
+                  <span class="text-sm font-mono shrink-0" style="color: var(--color-text-muted);">
+                    <span data-locale-es>{job.period.es}</span>
+                    <span data-locale-en class="hidden">{job.period.en}</span>
+                  </span>
+                </div>
+                <ul class="space-y-1.5">
+                  {job.description.es.map((item, i) => (
+                    <li class="text-sm flex items-start gap-2" style="color: var(--color-text-secondary);">
+                      <span class="mt-1.5 shrink-0 w-1 h-1 rounded-full" style="background-color: var(--color-accent);"></span>
+                      <span>
+                        <span data-locale-es>{item}</span>
+                        <span data-locale-en class="hidden">{job.description.en[i]}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Featured Project */}
+        <div class="mb-12">
+          <h2
+            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            style="color: var(--color-accent);"
+          >
+            <span data-locale-es>Proyecto Destacado</span>
+            <span data-locale-en class="hidden">Featured Project</span>
+          </h2>
+          <div class="resume-entry">
+            <h3 class="text-base font-semibold mb-2" style="color: var(--color-text-primary);">
+              <span data-locale-es>{featuredProject.title.es}</span>
+              <span data-locale-en class="hidden">{featuredProject.title.en}</span>
+            </h3>
+            <ul class="space-y-1.5">
+              {featuredProject.items.es.map((item, i) => (
+                <li class="text-sm flex items-start gap-2" style="color: var(--color-text-secondary);">
+                  <span class="mt-1.5 shrink-0 w-1 h-1 rounded-full" style="background-color: var(--color-accent);"></span>
+                  <span>
+                    <span data-locale-es>{item}</span>
+                    <span data-locale-en class="hidden">{featuredProject.items.en[i]}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Education */}
+        <div class="mb-12">
+          <h2
+            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            style="color: var(--color-accent);"
+            data-i18n-key="resume.education"
+          >
+            Educación
+          </h2>
+          <div class="space-y-4">
+            {education.map((edu) => (
+              <div class="resume-entry">
+                <h3 class="text-base font-semibold" style="color: var(--color-text-primary);">
+                  <span data-locale-es>{edu.title.es}</span>
+                  <span data-locale-en class="hidden">{edu.title.en}</span>
+                  <span style="color: var(--color-text-muted);"> — {edu.institution}</span>
+                </h3>
+                <p class="text-sm" style="color: var(--color-text-secondary);">
+                  <span data-locale-es>{edu.detail.es}</span>
+                  <span data-locale-en class="hidden">{edu.detail.en}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Skills */}
+        <div>
+          <h2
+            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            style="color: var(--color-accent);"
+            data-i18n-key="resume.skills"
+          >
+            Skills
+          </h2>
+          <div class="grid sm:grid-cols-2 gap-6">
+            {Object.entries(skills).map(([category, items]) => (
+              <div>
+                <h3 class="text-sm font-semibold mb-3" style="color: var(--color-text-primary);">{category}</h3>
+                <div class="flex flex-wrap gap-1.5">
+                  {items.map((skill) => (
+                    <span class="resume-skill">{skill}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .resume-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .resume-download-btn:hover {
+    background-color: var(--color-accent);
+    color: white;
+  }
+
+  .resume-entry {
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-border);
+    transition: border-color 0.2s ease;
+  }
+
+  .resume-entry:hover {
+    border-left-color: var(--color-accent);
+  }
+
+  .resume-skill {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-secondary);
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
+    cursor: default;
+  }
+
+  .resume-skill:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+</style>
+
+<script>
+  import type { Locale } from '@i18n/store';
+  import { ui } from '@i18n/ui';
+
+  function updateResumeLocale(locale: Locale) {
+    const esElements = document.querySelectorAll<HTMLElement>('main [data-locale-es]');
+    const enElements = document.querySelectorAll<HTMLElement>('main [data-locale-en]');
+
+    if (locale === 'en') {
+      esElements.forEach((el) => el.classList.add('hidden'));
+      enElements.forEach((el) => el.classList.remove('hidden'));
+    } else {
+      esElements.forEach((el) => el.classList.remove('hidden'));
+      enElements.forEach((el) => el.classList.add('hidden'));
+    }
+
+    const i18nElements = document.querySelectorAll<HTMLElement>('main [data-i18n-key]');
+    i18nElements.forEach((el) => {
+      const key = el.dataset.i18nKey as keyof (typeof ui)['es'];
+      if (key && ui[locale]?.[key]) {
+        el.textContent = ui[locale][key];
+      }
+    });
+
+    // Update CV download link
+    const cvLink = document.querySelector<HTMLAnchorElement>('[data-cv-link]');
+    if (cvLink) {
+      cvLink.href = `/cv/facundo-resume-${locale}.pdf`;
+    }
+  }
+
+  const initialLocale = (document.documentElement.lang || 'es') as Locale;
+  updateResumeLocale(initialLocale);
+
+  window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
+    updateResumeLocale(e.detail);
+  }) as EventListener);
+</script>

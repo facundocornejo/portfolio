@@ -1,17 +1,43 @@
 ---
-
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import Hero from '@components/sections/Hero.astro';
+import Projects from '@components/sections/Projects.astro';
+import About from '@components/sections/About.astro';
+import Contact from '@components/sections/Contact.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+  title="Facundo Cornejo — Fullstack Developer | React, Next.js, Angular"
+  description="Portfolio de Facundo Cornejo — Fullstack Developer de Paraná, Argentina. React, Next.js, TypeScript, AI-augmented workflow. Ciudadanía UE."
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: 'Facundo Cornejo',
+      jobTitle: 'Fullstack Developer',
+      url: 'https://fromdevdiego.com',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Paraná',
+        addressCountry: 'AR',
+      },
+      sameAs: [
+        'https://github.com/facundocornejo',
+        'https://www.linkedin.com/in/facundo-cornejo-12a58b325/',
+      ],
+    })}
+  />
+  <Header />
+  <main class="pt-16">
+    <Hero />
+    <Projects />
+    <About />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>

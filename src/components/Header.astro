@@ -1,0 +1,153 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import LanguageToggle from './LanguageToggle.tsx';
+import MobileMenu from './MobileMenu.tsx';
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b"
+  style="background-color: color-mix(in srgb, var(--color-bg-primary) 80%, transparent); border-color: var(--color-border);"
+>
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="font-mono text-lg font-bold tracking-tight"
+        style="color: var(--color-text-primary);"
+      >
+        Facundo Cornejo<span style="color: var(--color-accent);">.</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a
+          href="#projects"
+          class="nav-link text-sm font-medium transition-colors duration-200"
+          data-i18n-key="nav.projects"
+        >
+          Proyectos
+        </a>
+        <a
+          href="#about"
+          class="nav-link text-sm font-medium transition-colors duration-200"
+          data-i18n-key="nav.about"
+        >
+          Sobre mí
+        </a>
+        <a
+          href="#contact"
+          class="nav-link text-sm font-medium transition-colors duration-200"
+          data-i18n-key="nav.contact"
+        >
+          Contacto
+        </a>
+        <a
+          href="/resume"
+          class="nav-link text-sm font-medium transition-colors duration-200"
+          data-i18n-key="nav.resume"
+        >
+          Currículum
+        </a>
+
+        <div class="flex items-center gap-1" style="border-left: 1px solid var(--color-border); padding-left: 1rem; margin-left: 0.5rem;">
+          <LanguageToggle client:load />
+          <ThemeToggle />
+        </div>
+      </nav>
+
+      <!-- Mobile: toggles + hamburger -->
+      <div class="flex md:hidden items-center gap-1">
+        <LanguageToggle client:load />
+        <ThemeToggle />
+        <MobileMenu client:load />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav-link {
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: width 0.2s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+</style>
+
+<!-- i18n text swap for Astro-rendered elements -->
+<script>
+  import { ui } from '@i18n/ui';
+  import type { Locale } from '@i18n/store';
+
+  function updateTexts(locale: Locale) {
+    const elements = document.querySelectorAll<HTMLElement>('[data-i18n-key]');
+    elements.forEach((el) => {
+      const key = el.dataset.i18nKey as keyof (typeof ui)['es'];
+      if (key && ui[locale]?.[key]) {
+        el.textContent = ui[locale][key];
+      }
+    });
+  }
+
+  // Listen for locale changes from React islands
+  window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
+    updateTexts(e.detail);
+  }) as EventListener);
+
+  // Set initial text based on detected locale
+  const initialLocale = (document.documentElement.lang || 'es') as Locale;
+  updateTexts(initialLocale);
+
+  // Active nav link on scroll
+  function initActiveNav() {
+    const sections = document.querySelectorAll<HTMLElement>('section[id]');
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>('header .nav-link[href^="#"]');
+
+    if (!sections.length || !navLinks.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach((link) => {
+              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+          }
+        });
+      },
+      { rootMargin: '-20% 0px -60% 0px' },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  initActiveNav();
+</script>

@@ -1,0 +1,260 @@
+---
+---
+
+<section id="hero" class="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+  <!-- Particle canvas -->
+  <canvas
+    id="hero-canvas"
+    class="absolute inset-0 w-full h-full"
+    aria-hidden="true"
+  ></canvas>
+
+  <!-- Content -->
+  <div class="relative z-10 mx-auto max-w-4xl text-center">
+    <p
+      class="hero-fade font-mono text-sm mb-4"
+      style="color: var(--color-accent); --delay: 0.1s;"
+      data-i18n-key="hero.greeting"
+    >
+      Hola, soy Facundo
+    </p>
+    <h1
+      class="hero-fade text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
+      style="color: var(--color-text-primary); --delay: 0.3s;"
+      data-i18n-key="hero.title"
+    >
+      Fullstack Developer
+    </h1>
+    <p
+      class="hero-fade text-lg sm:text-xl max-w-2xl mx-auto mb-8"
+      style="color: var(--color-text-secondary); --delay: 0.5s;"
+      data-i18n-key="hero.subtitle"
+    >
+      Construyo productos digitales con TypeScript, React y un workflow AI-augmented.
+    </p>
+    <p
+      class="hero-fade font-mono text-sm mb-8"
+      style="color: var(--color-text-muted); --delay: 0.6s;"
+      data-i18n-key="hero.location"
+    >
+      Paraná, Argentina · Remoto · Ciudadanía UE 🇪🇺
+    </p>
+    <div class="hero-fade flex flex-col sm:flex-row items-center justify-center gap-4" style="--delay: 0.7s;">
+      <a
+        href="#projects"
+        class="inline-flex items-center px-6 py-3 rounded-lg text-sm font-medium text-white transition-colors duration-200"
+        style="background-color: var(--color-accent);"
+        data-i18n-key="hero.cta.projects"
+      >
+        Ver proyectos
+      </a>
+      <a
+        href="#contact"
+        class="inline-flex items-center px-6 py-3 rounded-lg text-sm font-medium border transition-colors duration-200"
+        style="color: var(--color-text-primary); border-color: var(--color-border);"
+        data-i18n-key="hero.cta.contact"
+      >
+        Contactame
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    // --- Config ---
+    const CONNECTION_DISTANCE = 120;
+    const MOUSE_RADIUS = 150;
+    const MOUSE_FORCE = 0.8;
+    const BASE_SPEED = 0.3;
+
+    // --- State ---
+    let width = 0;
+    let height = 0;
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let accentRgb = { r: 109, g: 40, b: 217 };
+
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+    }
+
+    let particles: Particle[] = [];
+
+    function parseAccentColor() {
+      const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-accent')
+        .trim();
+
+      // Try hex parse
+      const hex = raw.replace('#', '');
+      if (/^[0-9a-fA-F]{6}$/.test(hex)) {
+        accentRgb = {
+          r: parseInt(hex.slice(0, 2), 16),
+          g: parseInt(hex.slice(2, 4), 16),
+          b: parseInt(hex.slice(4, 6), 16),
+        };
+        return;
+      }
+      if (/^[0-9a-fA-F]{3}$/.test(hex)) {
+        accentRgb = {
+          r: parseInt(hex[0] + hex[0], 16),
+          g: parseInt(hex[1] + hex[1], 16),
+          b: parseInt(hex[2] + hex[2], 16),
+        };
+        return;
+      }
+
+      // Try rgb() parse
+      const rgbMatch = raw.match(/(\d+),\s*(\d+),\s*(\d+)/);
+      if (rgbMatch) {
+        accentRgb = {
+          r: parseInt(rgbMatch[1]),
+          g: parseInt(rgbMatch[2]),
+          b: parseInt(rgbMatch[3]),
+        };
+      }
+    }
+
+    function createParticle(): Particle {
+      const angle = Math.random() * Math.PI * 2;
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: Math.cos(angle) * BASE_SPEED,
+        vy: Math.sin(angle) * BASE_SPEED,
+        radius: Math.random() * 1.5 + 1,
+      };
+    }
+
+    function resize() {
+      const section = canvas.parentElement!;
+      width = section.offsetWidth;
+      height = section.offsetHeight;
+
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const target = window.innerWidth < 768 ? 30 : 60;
+      if (particles.length === 0) {
+        particles = Array.from({ length: target }, createParticle);
+      }
+    }
+
+    function animate() {
+      const { r, g, b } = accentRgb;
+      ctx!.clearRect(0, 0, width, height);
+
+      for (const p of particles) {
+        // Mouse repulsion
+        const dx = p.x - mouseX;
+        const dy = p.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          const force = (1 - dist / MOUSE_RADIUS) * MOUSE_FORCE;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+        }
+
+        // Damping
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+
+        // Ensure minimum speed
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed < BASE_SPEED * 0.5) {
+          const angle = Math.atan2(p.vy, p.vx);
+          p.vx = Math.cos(angle) * BASE_SPEED * 0.5;
+          p.vy = Math.sin(angle) * BASE_SPEED * 0.5;
+        }
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around edges
+        if (p.x < -10) p.x = width + 10;
+        if (p.x > width + 10) p.x = -10;
+        if (p.y < -10) p.y = height + 10;
+        if (p.y > height + 10) p.y = -10;
+
+        // Draw particle
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(${r},${g},${b},0.6)`;
+        ctx!.fill();
+      }
+
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < CONNECTION_DISTANCE) {
+            const opacity = (1 - dist / CONNECTION_DISTANCE) * 0.3;
+            ctx!.beginPath();
+            ctx!.moveTo(particles[i].x, particles[i].y);
+            ctx!.lineTo(particles[j].x, particles[j].y);
+            ctx!.strokeStyle = `rgba(${r},${g},${b},${opacity})`;
+            ctx!.lineWidth = 0.5;
+            ctx!.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    // --- Init ---
+    parseAccentColor();
+    resize();
+    animate();
+
+    window.addEventListener('resize', resize);
+
+    // Update accent color when theme changes
+    const observer = new MutationObserver(() => parseAccentColor());
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      mouseX = -9999;
+      mouseY = -9999;
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      mouseX = touch.clientX - rect.left;
+      mouseY = touch.clientY - rect.top;
+    }, { passive: true });
+
+    canvas.addEventListener('touchend', () => {
+      mouseX = -9999;
+      mouseY = -9999;
+    });
+  })();
+</script>
