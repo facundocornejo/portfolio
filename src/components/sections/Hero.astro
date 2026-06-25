@@ -9,6 +9,9 @@
     aria-hidden="true"
   ></canvas>
 
+  <!-- Radial accent glow behind the name -->
+  <div class="hero-glow" aria-hidden="true"></div>
+
   <!-- Content -->
   <div class="relative z-10 mx-auto max-w-4xl text-center">
     <p
@@ -59,6 +62,33 @@
     </div>
   </div>
 </section>
+
+<style>
+  .hero-glow {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    width: min(90vw, 720px);
+    height: min(60vh, 480px);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--color-accent) 22%, transparent) 0%,
+      transparent 70%
+    );
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  :root[data-theme='dark'] .hero-glow {
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--color-accent) 32%, transparent) 0%,
+      transparent 70%
+    );
+  }
+</style>
 
 <script>
   (function () {

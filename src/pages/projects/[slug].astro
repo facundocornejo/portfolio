@@ -47,15 +47,23 @@ const project = projects.find((p) => p.id === cs.projectId)!;
         ))}
       </div>
 
-      {/* Cover image */}
+      {/* Cover image — browser mockup */}
       <div class="cs-image-frame">
-        <img
-          src={project.image}
-          alt={cs.title.es}
-          class="w-full h-full object-cover"
-          loading="lazy"
-          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-        />
+        <div class="browser-bar" aria-hidden="true">
+          <span class="browser-dot"></span>
+          <span class="browser-dot"></span>
+          <span class="browser-dot"></span>
+          <span class="browser-url"></span>
+        </div>
+        <div class="cs-image-inner">
+          <img
+            src={project.image}
+            alt={cs.title.es}
+            class="w-full h-full object-cover"
+            loading="lazy"
+            onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+          />
+        </div>
       </div>
 
       {/* Sections */}
@@ -187,6 +195,13 @@ const project = projects.find((p) => p.id === cs.projectId)!;
     border: 1px solid var(--color-border);
     background-color: var(--color-bg-secondary);
     margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cs-image-inner {
+    flex: 1;
+    overflow: hidden;
   }
 
   .cs-section {

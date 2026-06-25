@@ -6,6 +6,7 @@ import { t } from '@i18n/utils';
 const navLinks = [
   { key: 'nav.projects' as const, href: '#projects' },
   { key: 'nav.about' as const, href: '#about' },
+  { key: 'nav.workflow' as const, href: '#workflow' },
   { key: 'nav.contact' as const, href: '#contact' },
   { key: 'nav.resume' as const, href: '/resume' },
 ];

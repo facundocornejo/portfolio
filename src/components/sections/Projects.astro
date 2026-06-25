@@ -6,6 +6,7 @@ const visibleProjects = projects.filter((p) => p.visible !== false);
 
 <section id="projects" class="py-24 px-4">
   <div class="mx-auto max-w-6xl">
+    <p class="section-eyebrow" data-i18n-key="projects.eyebrow">01 — Trabajo seleccionado</p>
     <h2
       class="text-3xl sm:text-4xl font-bold mb-4"
       style="color: var(--color-text-primary);"
@@ -38,18 +39,27 @@ const visibleProjects = projects.filter((p) => p.visible !== false);
             {/* Image with dot pattern */}
             <div
               class:list={[
-                'project-image-wrapper aspect-video overflow-hidden relative',
+                'project-image-wrapper aspect-video overflow-hidden relative flex flex-col',
                 project.featured ? 'md:w-1/2 md:aspect-auto md:min-h-full' : '',
               ]}
             >
-              <div class="dot-pattern absolute inset-0" aria-hidden="true"></div>
-              <img
-                src={project.image}
-                alt={project.title.es}
-                class="w-full h-full object-cover relative z-[1] transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-                onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-              />
+              {/* Browser chrome */}
+              <div class="browser-bar" aria-hidden="true">
+                <span class="browser-dot"></span>
+                <span class="browser-dot"></span>
+                <span class="browser-dot"></span>
+                <span class="browser-url"></span>
+              </div>
+              <div class="relative flex-1 overflow-hidden">
+                <div class="dot-pattern absolute inset-0" aria-hidden="true"></div>
+                <img
+                  src={project.image}
+                  alt={project.title.es}
+                  class="w-full h-full object-cover relative z-[1] transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+                />
+              </div>
             </div>
 
             {/* Content */}

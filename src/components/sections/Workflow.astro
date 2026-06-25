@@ -1,0 +1,132 @@
+---
+---
+
+<section id="workflow" class="py-24 px-4">
+  <div class="mx-auto max-w-5xl">
+    <p class="section-eyebrow scroll-fade" data-i18n-key="workflow.eyebrow">03 — Proceso</p>
+    <h2
+      class="text-3xl sm:text-4xl font-bold mb-4 scroll-fade"
+      style="color: var(--color-text-primary); --stagger: 0.05s;"
+      data-i18n-key="workflow.title"
+    >
+      Cómo trabajo con IA
+    </h2>
+    <p
+      class="text-base mb-12 max-w-2xl scroll-fade"
+      style="color: var(--color-text-muted); --stagger: 0.1s;"
+      data-i18n-key="workflow.subtitle"
+    >
+      Criterio humano + velocidad de IA. La IA no hace el trabajo: lo multiplica.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="workflow-card scroll-fade" style="--stagger: 0.15s;">
+        <span class="workflow-num">01</span>
+        <h3 class="workflow-card-title" data-i18n-key="workflow.step1.title">Relevamiento</h3>
+        <p class="workflow-card-body" data-i18n-key="workflow.step1.body">
+          Entiendo el problema y el dominio antes de escribir una línea. Traduzco necesidades operativas en requerimientos técnicos.
+        </p>
+      </div>
+
+      <div class="workflow-card scroll-fade" style="--stagger: 0.25s;">
+        <span class="workflow-num">02</span>
+        <h3 class="workflow-card-title" data-i18n-key="workflow.step2.title">Construcción con IA</h3>
+        <p class="workflow-card-body" data-i18n-key="workflow.step2.body">
+          Claude Code, Cursor y Gemini como multiplicadores: prototipo más rápido y automatizo lo repetitivo, manteniendo el criterio sobre cada decisión.
+        </p>
+      </div>
+
+      <div class="workflow-card scroll-fade" style="--stagger: 0.35s;">
+        <span class="workflow-num">03</span>
+        <h3 class="workflow-card-title" data-i18n-key="workflow.step3.title">Entrega y soporte</h3>
+        <p class="workflow-card-body" data-i18n-key="workflow.step3.body">
+          Pruebo, deployo y documento. El resultado tiene que funcionar en producción, no solo en mi máquina.
+        </p>
+      </div>
+    </div>
+
+    <p class="workflow-example scroll-fade" style="--stagger: 0.4s;" data-i18n-key="workflow.example">
+      Ejemplo real: el asistente RAG de ULTRA ERP bajó las consultas de stock de minutos a segundos.
+    </p>
+  </div>
+</section>
+
+<style>
+  .workflow-card {
+    padding: 1.75rem;
+    border-radius: 0.875rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .workflow-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+  }
+
+  .workflow-num {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+    opacity: 0.85;
+  }
+
+  .workflow-card-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .workflow-card-body {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--color-text-secondary);
+  }
+
+  .workflow-example {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 0.5rem 0.5rem 0;
+    background-color: var(--color-accent-light);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .workflow-card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import type { Locale } from '@i18n/store';
+  import { ui } from '@i18n/ui';
+
+  function updateWorkflowLocale(locale: Locale) {
+    const i18nElements = document.querySelectorAll<HTMLElement>('#workflow [data-i18n-key]');
+    i18nElements.forEach((el) => {
+      const key = el.dataset.i18nKey as keyof (typeof ui)['es'];
+      if (key && ui[locale]?.[key]) {
+        el.textContent = ui[locale][key];
+      }
+    });
+  }
+
+  const initialLocale = (document.documentElement.lang || 'es') as Locale;
+  updateWorkflowLocale(initialLocale);
+
+  window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
+    updateWorkflowLocale(e.detail);
+  }) as EventListener);
+</script>
