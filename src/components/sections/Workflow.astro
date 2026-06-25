@@ -16,37 +16,37 @@
       style="color: var(--color-text-muted); --stagger: 0.1s;"
       data-i18n-key="workflow.subtitle"
     >
-      Criterio humano + velocidad de IA. La IA no hace el trabajo: lo multiplica.
+      La IA es una herramienta que potencia, no un atajo que reemplaza. Programo con ella: yo defino la arquitectura y las decisiones, la IA ejecuta más rápido. El criterio es humano.
     </p>
 
     <div class="grid md:grid-cols-3 gap-6">
       <div class="workflow-card scroll-fade" style="--stagger: 0.15s;">
         <span class="workflow-num">01</span>
-        <h3 class="workflow-card-title" data-i18n-key="workflow.step1.title">Relevamiento</h3>
+        <h3 class="workflow-card-title" data-i18n-key="workflow.step1.title">Contexto que persiste</h3>
         <p class="workflow-card-body" data-i18n-key="workflow.step1.body">
-          Entiendo el problema y el dominio antes de escribir una línea. Traduzco necesidades operativas en requerimientos técnicos.
+          Memoria que sobrevive entre sesiones (engram, CLAUDE.md). El asistente no arranca de cero: conoce el proyecto, sus decisiones y convenciones, y mantiene la coherencia.
         </p>
       </div>
 
       <div class="workflow-card scroll-fade" style="--stagger: 0.25s;">
         <span class="workflow-num">02</span>
-        <h3 class="workflow-card-title" data-i18n-key="workflow.step2.title">Construcción con IA</h3>
+        <h3 class="workflow-card-title" data-i18n-key="workflow.step2.title">Agentes especializados</h3>
         <p class="workflow-card-body" data-i18n-key="workflow.step2.body">
-          Claude Code, Cursor y Gemini como multiplicadores: prototipo más rápido y automatizo lo repetitivo, manteniendo el criterio sobre cada decisión.
+          Delego tareas a subagentes enfocados —arquitectura, testing, seguridad, exploración— que trabajan en paralelo. Yo orquesto; ellos ejecutan.
         </p>
       </div>
 
       <div class="workflow-card scroll-fade" style="--stagger: 0.35s;">
         <span class="workflow-num">03</span>
-        <h3 class="workflow-card-title" data-i18n-key="workflow.step3.title">Entrega y soporte</h3>
+        <h3 class="workflow-card-title" data-i18n-key="workflow.step3.title">Plan, ejecución y revisión</h3>
         <p class="workflow-card-body" data-i18n-key="workflow.step3.body">
-          Pruebo, deployo y documento. El resultado tiene que funcionar en producción, no solo en mi máquina.
+          Primero un plan explícito, después el código. Reviso y valido cada cambio antes de integrarlo: la IA propone, yo decido.
         </p>
       </div>
     </div>
 
     <p class="workflow-example scroll-fade" style="--stagger: 0.4s;" data-i18n-key="workflow.example">
-      Ejemplo real: el asistente RAG de ULTRA ERP bajó las consultas de stock de minutos a segundos.
+      Así construí el RAG de ULTRA ERP: la IA aceleró la implementación, pero las decisiones de arquitectura —usar pgvector, qué indexar, cómo dar contexto al modelo— fueron mías.
     </p>
   </div>
 </section>
@@ -97,9 +97,8 @@
     border-radius: 0 0.5rem 0.5rem 0;
     background-color: var(--color-accent-light);
     font-size: 0.9375rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--color-text-secondary);
-    font-family: var(--font-mono);
   }
 
   @media (prefers-reduced-motion: reduce) {
