@@ -12,12 +12,14 @@ export interface Project {
   featured?: boolean;
   github?: string;
   demo?: string;
+  caseStudySlug?: string;
 }
 
 export const projects: Project[] = [
   {
     id: 'supleya',
     featured: true,
+    caseStudySlug: 'ultra-erp',
     title: { es: 'ULTRA ERP', en: 'ULTRA ERP' },
     role: {
       es: 'Desarrollo end-to-end: relevamiento, arquitectura, RAG y UI',
@@ -54,6 +56,7 @@ export const projects: Project[] = [
   },
   {
     id: 'adoptly',
+    caseStudySlug: 'adoptly',
     title: {
       es: 'Adoptly — Plataforma de Adopción Animal',
       en: 'Adoptly — Animal Adoption Platform',

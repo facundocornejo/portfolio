@@ -1,0 +1,301 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import { caseStudies } from '@content/case-studies';
+import { projects } from '@content/projects';
+
+export function getStaticPaths() {
+  return caseStudies.map((cs) => ({ params: { slug: cs.slug }, props: { cs } }));
+}
+
+const { cs } = Astro.props;
+const project = projects.find((p) => p.id === cs.projectId)!;
+---
+
+<Layout
+  title={`${cs.title.es} — Case Study | Facundo Cornejo`}
+  description={cs.tagline.es}
+>
+  <Header />
+  <main class="pt-16">
+    <article class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
+      {/* Back link */}
+      <a href="/#projects" class="cs-back">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span data-locale-es>Volver a proyectos</span>
+        <span data-locale-en class="hidden">Back to projects</span>
+      </a>
+
+      {/* Header */}
+      <p class="cs-eyebrow">Case study</p>
+      <h1 class="cs-title">
+        <span data-locale-es>{cs.title.es}</span>
+        <span data-locale-en class="hidden">{cs.title.en}</span>
+      </h1>
+      <p class="cs-tagline">
+        <span data-locale-es>{cs.tagline.es}</span>
+        <span data-locale-en class="hidden">{cs.tagline.en}</span>
+      </p>
+
+      {/* Stack */}
+      <div class="flex flex-wrap gap-1.5 mb-10">
+        {project.stack.map((tech) => (
+          <span class="cs-badge">{tech}</span>
+        ))}
+      </div>
+
+      {/* Cover image */}
+      <div class="cs-image-frame">
+        <img
+          src={project.image}
+          alt={cs.title.es}
+          class="w-full h-full object-cover"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+        />
+      </div>
+
+      {/* Sections */}
+      {cs.sections.map((section) => (
+        <section class="cs-section">
+          <h2 class="cs-heading">
+            <span data-locale-es>{section.heading.es}</span>
+            <span data-locale-en class="hidden">{section.heading.en}</span>
+          </h2>
+
+          {section.body && (
+            <p class="cs-body">
+              <span data-locale-es>{section.body.es}</span>
+              <span data-locale-en class="hidden">{section.body.en}</span>
+            </p>
+          )}
+
+          {section.bullets && (
+            <>
+              <ul data-locale-es class="cs-list">
+                {section.bullets.es.map((item) => (
+                  <li>
+                    <span class="cs-bullet" aria-hidden="true">&#x2192;</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul data-locale-en class="cs-list hidden">
+                {section.bullets.en.map((item) => (
+                  <li>
+                    <span class="cs-bullet" aria-hidden="true">&#x2192;</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </section>
+      ))}
+
+      {/* CTA footer */}
+      <div class="cs-cta">
+        <div class="flex flex-wrap gap-3">
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer" class="cs-link-secondary">
+              <span data-locale-es>Ver código</span>
+              <span data-locale-en class="hidden">View code</span>
+            </a>
+          )}
+          {project.demo && (
+            <a href={project.demo} target="_blank" rel="noopener noreferrer" class="cs-link-secondary">
+              <span data-locale-es>Ver demo</span>
+              <span data-locale-en class="hidden">View demo</span>
+            </a>
+          )}
+          <a href="/#contact" class="cs-link-primary">
+            <span data-locale-es>Hablemos</span>
+            <span data-locale-en class="hidden">Let's talk</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .cs-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    transition: color 0.2s ease;
+  }
+  .cs-back:hover {
+    color: var(--color-accent);
+  }
+
+  .cs-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .cs-title {
+    font-size: 2.25rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+  @media (min-width: 640px) {
+    .cs-title {
+      font-size: 2.75rem;
+    }
+  }
+
+  .cs-tagline {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .cs-badge {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-secondary);
+  }
+
+  .cs-image-frame {
+    aspect-ratio: 16 / 9;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-secondary);
+    margin-bottom: 3rem;
+  }
+
+  .cs-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .cs-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.75rem;
+    padding-left: 0.875rem;
+    border-left: 3px solid var(--color-accent);
+  }
+
+  .cs-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+  }
+
+  .cs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .cs-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+  .cs-bullet {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .cs-cta {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cs-link-secondary,
+  .cs-link-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .cs-link-secondary {
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+  .cs-link-secondary:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-light);
+  }
+
+  .cs-link-primary {
+    background-color: var(--color-accent);
+    color: white;
+  }
+  .cs-link-primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-link-primary:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import type { Locale } from '@i18n/store';
+
+  function updateLocale(locale: Locale) {
+    const esElements = document.querySelectorAll<HTMLElement>('[data-locale-es]');
+    const enElements = document.querySelectorAll<HTMLElement>('[data-locale-en]');
+
+    if (locale === 'en') {
+      esElements.forEach((el) => el.classList.add('hidden'));
+      enElements.forEach((el) => el.classList.remove('hidden'));
+    } else {
+      esElements.forEach((el) => el.classList.remove('hidden'));
+      enElements.forEach((el) => el.classList.add('hidden'));
+    }
+  }
+
+  const initialLocale = (document.documentElement.lang || 'es') as Locale;
+  updateLocale(initialLocale);
+
+  window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
+    updateLocale(e.detail);
+  }) as EventListener);
+</script>
