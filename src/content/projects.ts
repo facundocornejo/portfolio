@@ -3,6 +3,7 @@ import type { Locale } from '@i18n/store';
 export interface Project {
   id: string;
   title: Record<Locale, string>;
+  role: Record<Locale, string>;
   description: Record<Locale, string>;
   stack: string[];
   highlights: Record<Locale, string[]>;
@@ -18,6 +19,10 @@ export const projects: Project[] = [
     id: 'supleya',
     featured: true,
     title: { es: 'ULTRA ERP', en: 'ULTRA ERP' },
+    role: {
+      es: 'Desarrollo end-to-end: relevamiento, arquitectura, RAG y UI',
+      en: 'End-to-end development: discovery, architecture, RAG, and UI',
+    },
     description: {
       es: 'Sistema ERP completo para SupleYA con chatbot AI (RAG), consultas en lenguaje natural y generador de posts para redes sociales.',
       en: 'Full ERP system for SupleYA with AI chatbot (RAG), natural language queries, and social media post generator.',
@@ -48,10 +53,14 @@ export const projects: Project[] = [
     github: undefined,
   },
   {
-    id: 'tfi',
+    id: 'adoptly',
     title: {
-      es: 'TFI — Plataforma de Adopción Animal',
-      en: 'TFI — Animal Adoption Platform',
+      es: 'Adoptly — Plataforma de Adopción Animal',
+      en: 'Adoptly — Animal Adoption Platform',
+    },
+    role: {
+      es: 'Fullstack: frontend Clean Architecture + API REST',
+      en: 'Fullstack: Clean Architecture frontend + REST API',
     },
     description: {
       es: 'Plataforma fullstack para organizaciones de rescate animal de Paraná. Trabajo de campo con 4 organizaciones reales.',
@@ -88,6 +97,10 @@ export const projects: Project[] = [
       es: 'Azopardo — Gestión de Club',
       en: 'Azopardo — Club Management',
     },
+    role: {
+      es: 'Frontend Developer en equipo (Angular 18)',
+      en: 'Frontend Developer in a team (Angular 18)',
+    },
     description: {
       es: 'Plataforma de gestión para club deportivo. Proyecto profesional en equipo en Lindigo.',
       en: 'Management platform for a sports club. Professional team project at Lindigo.',
@@ -110,38 +123,14 @@ export const projects: Project[] = [
     github: undefined,
   },
   {
-    id: 'flight-bot',
-    title: {
-      es: 'Bot de Vuelos — Price Alert',
-      en: 'Flight Price Bot — Price Alert',
-    },
-    description: {
-      es: 'Bot que monitorea precios de vuelos y envía alertas por Telegram. Corre cada 6h en GitHub Actions — $0/mes.',
-      en: 'Bot that monitors flight prices and sends Telegram alerts. Runs every 6h on GitHub Actions — $0/month.',
-    },
-    stack: ['Python', 'httpx', 'GitHub Actions', 'Telegram Bot API'],
-    highlights: {
-      es: [
-        'Ingeniería inversa de APIs de aerolíneas',
-        'Arquitectura de adaptadores extensible',
-        'Costo total: $0/mes',
-      ],
-      en: [
-        'Reverse-engineered airline APIs',
-        'Extensible adapter architecture',
-        'Total cost: $0/month',
-      ],
-    },
-
-    image: '/images/placeholder.svg',
-    github: 'https://github.com/facundocornejo/flightbot',
-  },
-  {
     id: 'beastmotor',
-    visible: false,
     title: {
-      es: 'BeastMotor — Concesionaria',
-      en: 'BeastMotor — Car Dealership',
+      es: 'Beast Motors — Concesionaria',
+      en: 'Beast Motors — Car Dealership',
+    },
+    role: {
+      es: 'Freelance: desarrollo completo + SEO',
+      en: 'Freelance: full build + SEO',
     },
     description: {
       es: 'Catálogo digital para concesionaria de autos y motos. SEO optimizado, mobile-first, CTA a WhatsApp.',
@@ -169,5 +158,36 @@ export const projects: Project[] = [
 
     image: '/images/placeholder.svg',
     github: undefined,
+  },
+  {
+    id: 'flight-bot',
+    title: {
+      es: 'Bot de Vuelos — Price Alert',
+      en: 'Flight Price Bot — Price Alert',
+    },
+    role: {
+      es: 'Proyecto personal: diseño y desarrollo completo',
+      en: 'Personal project: full design and development',
+    },
+    description: {
+      es: 'Bot que monitorea precios de vuelos y envía alertas por Telegram. Corre cada 6h en GitHub Actions — $0/mes.',
+      en: 'Bot that monitors flight prices and sends Telegram alerts. Runs every 6h on GitHub Actions — $0/month.',
+    },
+    stack: ['Python', 'httpx', 'GitHub Actions', 'Telegram Bot API'],
+    highlights: {
+      es: [
+        'Ingeniería inversa de APIs de aerolíneas',
+        'Arquitectura de adaptadores extensible',
+        'Costo total: $0/mes',
+      ],
+      en: [
+        'Reverse-engineered airline APIs',
+        'Extensible adapter architecture',
+        'Total cost: $0/month',
+      ],
+    },
+
+    image: '/images/placeholder.svg',
+    github: 'https://github.com/facundocornejo/flightbot',
   },
 ];

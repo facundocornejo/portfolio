@@ -18,7 +18,7 @@ const visibleProjects = projects.filter((p) => p.visible !== false);
       style="color: var(--color-text-muted);"
       data-i18n-key="projects.subtitle"
     >
-      Algunos de los proyectos en los que estuve trabajando.
+      Productos reales, con usuarios reales. Esto es lo que construí.
     </p>
 
     <div class="grid gap-8 md:grid-cols-2">
@@ -67,6 +67,13 @@ const visibleProjects = projects.filter((p) => p.visible !== false);
                   </span>
                 )}
               </div>
+
+              {/* Role */}
+              <p class="text-xs mb-3" style="color: var(--color-text-muted);">
+                <span class="font-mono font-semibold" style="color: var(--color-accent);" data-i18n-key="projects.role">Mi rol:</span>{' '}
+                <span data-locale-es>{project.role.es}</span>
+                <span data-locale-en class="hidden">{project.role.en}</span>
+              </p>
 
               {/* Description */}
               <p class="text-sm leading-relaxed mb-4" style="color: var(--color-text-secondary);">
