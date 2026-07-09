@@ -5,10 +5,26 @@ import Footer from '@components/Footer.astro';
 
 const experience = [
   {
+    role: { es: 'Fullstack Developer (Pasantía)', en: 'Fullstack Developer (Internship)' },
+    company: 'Kraken',
+    companyEn: 'Kraken',
+    period: { es: 'Ene 2026 — Actualidad', en: 'Jan 2026 — Present' },
+    description: {
+      es: [
+        'Desarrollo fullstack de Aura Hub con Next.js, React 19, Prisma y PostgreSQL',
+        'Deploy e infraestructura en AWS Amplify',
+      ],
+      en: [
+        'Fullstack development of Aura Hub with Next.js, React 19, Prisma, and PostgreSQL',
+        'Deployment and infrastructure on AWS Amplify',
+      ],
+    },
+  },
+  {
     role: { es: 'Frontend Developer', en: 'Frontend Developer' },
     company: 'Lindigo (Proyecto Azopardo)',
     companyEn: 'Lindigo (Azopardo Project)',
-    period: { es: 'Jun 2025 — Mar 2026', en: 'Jun 2025 — Mar 2026' },
+    period: { es: 'Jun 2025 — May 2026', en: 'Jun 2025 — May 2026' },
     description: {
       es: [
         'Desarrollo y mantenimiento de plataforma de gestión para clubes sociales y deportivos con Angular 18',
@@ -26,7 +42,7 @@ const experience = [
     role: { es: 'Fullstack Developer', en: 'Fullstack Developer' },
     company: 'Proyectos Independientes & Freelance',
     companyEn: 'Independent & Freelance Projects',
-    period: { es: 'Ene 2024 — Presente', en: 'Jan 2024 — Present' },
+    period: { es: 'Feb 2024 — Presente', en: 'Feb 2024 — Present' },
     description: {
       es: [
         'ULTRA ERP: Sistema integral con Next.js, Supabase y shadcn/ui. Asistente IA con RAG (Gemini 2.0 Flash + pgvector) que redujo consultas de stock de minutos a segundos',
@@ -74,7 +90,7 @@ const education = [
   {
     title: { es: 'Tecnicatura Universitaria en Programación', en: 'Associate Degree in Programming' },
     institution: 'UTN FR Paraná',
-    detail: { es: 'Graduado', en: 'Graduated' },
+    detail: { es: 'Graduado (Feb 2026)', en: 'Graduated (Feb 2026)' },
   },
   {
     title: { es: 'Tecnicatura en Comercio Exterior', en: 'Associate Degree in Foreign Trade' },
@@ -112,8 +128,8 @@ const skills = {
               Fullstack Developer
             </p>
             <p class="text-sm mt-1" style="color: var(--color-text-muted);">
-              <span data-locale-es>Paraná, Argentina · Ciudadanía Española (UE)</span>
-              <span data-locale-en class="hidden">Paraná, Argentina · Spanish (EU) Citizenship</span>
+              <span data-locale-es>Paraná, Argentina · Ciudadanía Española (UE) · Inglés intermedio</span>
+              <span data-locale-en class="hidden">Paraná, Argentina · Spanish (EU) Citizenship · Intermediate English</span>
             </p>
           </div>
           <a
