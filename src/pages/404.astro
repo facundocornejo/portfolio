@@ -1,0 +1,85 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+---
+
+<Layout
+  title="404 — Página no encontrada | Facundo Cornejo"
+  description="Esta página no existe. Volvé al inicio del portfolio de Facundo Cornejo."
+>
+  <Header />
+  <main class="pt-16">
+    <section class="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
+      <p class="font-mono text-sm font-semibold" style="color: var(--color-accent);">404</p>
+      <h1
+        class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight"
+        style="color: var(--color-text-primary);"
+      >
+        <span data-locale-es>Esta página no existe</span>
+        <span data-locale-en class="hidden">This page doesn't exist</span>
+      </h1>
+      <p class="mt-3 text-base" style="color: var(--color-text-muted);">
+        <span data-locale-es>El link puede estar roto o la página se movió.</span>
+        <span data-locale-en class="hidden">The link may be broken or the page has moved.</span>
+      </p>
+      <a href="/" class="home-btn mt-8">
+        <span data-locale-es>Volver al inicio →</span>
+        <span data-locale-en class="hidden">Back to home →</span>
+      </a>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background-color: var(--color-accent);
+    color: white;
+    transition:
+      background-color 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .home-btn:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-btn:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import type { Locale } from '@i18n/store';
+
+  function update404Locale(locale: Locale) {
+    const esElements = document.querySelectorAll<HTMLElement>('main [data-locale-es]');
+    const enElements = document.querySelectorAll<HTMLElement>('main [data-locale-en]');
+
+    if (locale === 'en') {
+      esElements.forEach((el) => el.classList.add('hidden'));
+      enElements.forEach((el) => el.classList.remove('hidden'));
+    } else {
+      esElements.forEach((el) => el.classList.remove('hidden'));
+      enElements.forEach((el) => el.classList.add('hidden'));
+    }
+  }
+
+  const initialLocale = (document.documentElement.lang || 'es') as Locale;
+  update404Locale(initialLocale);
+
+  window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
+    update404Locale(e.detail);
+  }) as EventListener);
+</script>
