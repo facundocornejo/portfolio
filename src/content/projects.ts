@@ -66,12 +66,11 @@ export const projects: Project[] = [
       en: 'Fullstack: Clean Architecture frontend + REST API',
     },
     description: {
-      es: 'Plataforma fullstack para organizaciones de rescate animal de Paraná. Trabajo de campo con 4 organizaciones reales.',
-      en: 'Fullstack platform for animal rescue organizations in Paraná. Fieldwork with 4 real organizations.',
+      es: 'Plataforma fullstack para organizaciones de rescate animal. En producción, usada por 4 ONGs de Paraná.',
+      en: 'Fullstack platform for animal rescue organizations. In production, used by 4 NGOs in Paraná.',
     },
     stack: [
-      'React',
-      'Vite',
+      'Next.js',
       'Node.js',
       'Express',
       'Prisma',
@@ -80,12 +79,12 @@ export const projects: Project[] = [
     ],
     highlights: {
       es: [
-        'Usuarios reales: 4 organizaciones de rescate',
+        'En producción con 4 ONGs reales de Paraná',
         'Clean Architecture en frontend',
         'API REST con Swagger, JWT auth, tests con Jest y k6',
       ],
       en: [
-        'Real users: 4 rescue organizations',
+        'In production with 4 real NGOs in Paraná',
         'Clean Architecture on frontend',
         'REST API with Swagger, JWT auth, Jest & k6 tests',
       ],
@@ -93,6 +92,7 @@ export const projects: Project[] = [
 
     image: '/images/placeholder.svg',
     github: undefined,
+    demo: 'https://tfi-pet-adoption-front.vercel.app/',
   },
   {
     id: 'azopardo',
