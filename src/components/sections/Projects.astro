@@ -76,6 +76,12 @@ const visibleProjects = projects.filter((p) => p.visible !== false);
                     <span data-locale-en class="hidden">Featured</span>
                   </span>
                 )}
+                {project.inDevelopment && (
+                  <span class="wip-badge px-2 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-widest shrink-0">
+                    <span data-locale-es>En desarrollo</span>
+                    <span data-locale-en class="hidden">In development</span>
+                  </span>
+                )}
               </div>
 
               {/* Role */}
@@ -234,6 +240,13 @@ const visibleProjects = projects.filter((p) => p.visible !== false);
   .featured-badge {
     background-color: var(--color-accent);
     color: white;
+  }
+
+  /* ---- In-development badge (soft tint: status note, no compite con Destacado) ---- */
+  .wip-badge {
+    border: 1px solid var(--color-border);
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
   }
 
   /* ---- Tech badges ---- */

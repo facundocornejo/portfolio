@@ -10,6 +10,7 @@ export interface Project {
   image: string;
   visible?: boolean;
   featured?: boolean;
+  inDevelopment?: boolean;
   github?: string;
   demo?: string;
   caseStudySlug?: string;
@@ -156,6 +157,67 @@ export const projects: Project[] = [
         'Freelance project with real client',
         'SEO: Schema.org Vehicle, auto sitemap, ISR',
         'Admin panel with inventory management',
+      ],
+    },
+
+    image: '/images/placeholder.svg',
+    github: undefined,
+  },
+  {
+    id: 'punto-natural',
+    title: {
+      es: 'Punto Natural — POS/ERP',
+      en: 'Punto Natural — POS/ERP',
+    },
+    role: {
+      es: 'Freelance: diseño y desarrollo end-to-end',
+      en: 'Freelance: end-to-end design and development',
+    },
+    description: {
+      es: 'Punto de venta y gestión para un comercio local. Backend en Go con el stock modelado como ledger de movimientos. Sin demo pública: corre en la infraestructura del cliente.',
+      en: 'Point of sale and management system for a local business. Go backend with stock modeled as a movement ledger. No public demo: it runs on the client’s infrastructure.',
+    },
+    stack: ['Go', 'PostgreSQL', 'React', 'Docker'],
+    highlights: {
+      es: [
+        'Stock como ledger: historial auditable de movimientos',
+        'Transacciones atómicas en PostgreSQL',
+        'Deploy en VPS con Docker',
+      ],
+      en: [
+        'Stock as a ledger: auditable movement history',
+        'Atomic transactions in PostgreSQL',
+        'Deployed on a VPS with Docker',
+      ],
+    },
+
+    image: '/images/placeholder.svg',
+    github: undefined,
+  },
+  {
+    id: 'liga-al-touch',
+    inDevelopment: true,
+    title: {
+      es: 'Liga Al Touch — Fútbol Amateur',
+      en: 'Liga Al Touch — Amateur Football',
+    },
+    role: {
+      es: 'Proyecto freelance: desarrollo fullstack',
+      en: 'Freelance project: fullstack development',
+    },
+    description: {
+      es: 'Plataforma de gestión para una liga de fútbol amateur.',
+      en: 'Management platform for an amateur football league.',
+    },
+    stack: ['Next.js', 'TypeScript', 'PostgreSQL', 'Better Auth'],
+    highlights: {
+      es: [
+        'Next.js + TypeScript de punta a punta',
+        'Autenticación con Better Auth sobre PostgreSQL',
+      ],
+      en: [
+        'Next.js + TypeScript end to end',
+        'Authentication with Better Auth on PostgreSQL',
       ],
     },
 
