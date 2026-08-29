@@ -4,10 +4,10 @@ import { localeStore } from '@i18n/store';
 import { t } from '@i18n/utils';
 
 const navLinks = [
-  { key: 'nav.projects' as const, href: '#projects' },
-  { key: 'nav.about' as const, href: '#about' },
-  { key: 'nav.workflow' as const, href: '#workflow' },
-  { key: 'nav.contact' as const, href: '#contact' },
+  { key: 'nav.projects' as const, href: '/#projects' },
+  { key: 'nav.about' as const, href: '/#about' },
+  { key: 'nav.workflow' as const, href: '/#workflow' },
+  { key: 'nav.contact' as const, href: '/#contact' },
   { key: 'nav.resume' as const, href: '/resume' },
 ];
 
@@ -108,10 +108,12 @@ export default function MobileMenu() {
                 href={link.href}
                 onClick={(e) => {
                   setIsOpen(false);
-                  if (link.href.startsWith('#')) {
-                    e.preventDefault();
-                    const el = document.querySelector(link.href);
+                  // On the home page the target section exists: smooth-scroll in
+                  // place. Anywhere else, let the browser navigate to /#section.
+                  if (link.href.startsWith('/#')) {
+                    const el = document.querySelector(link.href.slice(1));
                     if (el) {
+                      e.preventDefault();
                       setTimeout(() => {
                         el.scrollIntoView({ behavior: 'smooth' });
                       }, 100);

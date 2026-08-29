@@ -22,28 +22,28 @@ import MobileMenu from './MobileMenu.tsx';
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-6">
         <a
-          href="#projects"
+          href="/#projects"
           class="nav-link text-sm font-medium transition-colors duration-200"
           data-i18n-key="nav.projects"
         >
           Proyectos
         </a>
         <a
-          href="#about"
+          href="/#about"
           class="nav-link text-sm font-medium transition-colors duration-200"
           data-i18n-key="nav.about"
         >
           Sobre mí
         </a>
         <a
-          href="#workflow"
+          href="/#workflow"
           class="nav-link text-sm font-medium transition-colors duration-200"
           data-i18n-key="nav.workflow"
         >
           IA
         </a>
         <a
-          href="#contact"
+          href="/#contact"
           class="nav-link text-sm font-medium transition-colors duration-200"
           data-i18n-key="nav.contact"
         >
@@ -135,7 +135,7 @@ import MobileMenu from './MobileMenu.tsx';
   // Active nav link on scroll
   function initActiveNav() {
     const sections = document.querySelectorAll<HTMLElement>('section[id]');
-    const navLinks = document.querySelectorAll<HTMLAnchorElement>('header .nav-link[href^="#"]');
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>('header .nav-link[href^="/#"]');
 
     if (!sections.length || !navLinks.length) return;
 
@@ -145,7 +145,7 @@ import MobileMenu from './MobileMenu.tsx';
           if (entry.isIntersecting) {
             const id = entry.target.id;
             navLinks.forEach((link) => {
-              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+              link.classList.toggle('active', link.getAttribute('href') === `/#${id}`);
             });
           }
         });
