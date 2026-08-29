@@ -28,17 +28,24 @@ Single page (`src/pages/index.astro`) con secciones: Hero, Proyectos, Sobre Mí,
 
 ```
 src/
-├── components/        # Componentes Astro y React (islas)
-├── layouts/           # Layout principal
+├── components/
+│   ├── sections/      # Secciones de la home: Hero, Projects, About, Contact, Workflow
+│   ├── Header.astro   # Header + nav
+│   ├── Footer.astro
+│   ├── ThemeToggle.astro
+│   ├── LanguageToggle.tsx  # Isla React
+│   └── MobileMenu.tsx      # Isla React
+├── layouts/           # Layout principal (Layout.astro)
 ├── pages/
 │   ├── index.astro    # Home (single page)
-│   └── resume.astro   # Resume dedicado
-├── i18n/              # Traducciones ES/EN (es.json, en.json)
-├── styles/            # Estilos globales + variables dark/light
-└── content/           # Data de proyectos, experiencia
+│   ├── resume.astro   # Resume dedicado
+│   └── projects/[slug].astro  # Case studies dinámicos
+├── i18n/              # Traducciones ES/EN type-safe en TS (ui.ts) + utils.ts y store.ts
+├── styles/            # Estilos globales + variables dark/light (global.css)
+└── content/           # Data en TS: projects.ts, case-studies.ts
 public/
 ├── images/            # Screenshots de proyectos
-├── cv/                # PDF del CV
+├── cv/                # PDF del CV (ES/EN)
 └── fonts/             # Fuentes custom
 ```
 

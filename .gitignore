@@ -27,3 +27,6 @@ pnpm-debug.log*
 auditoria-portfolio-fromdevdiego.md
 portfolio-context.md
 portfolio-fixes.md
+portfolio-fixes-v2.md
+tasks/
+.atl/
