@@ -97,13 +97,19 @@ const education = [
     institution: 'UADER',
     detail: { es: '95% completado', en: '95% completed' },
   },
+  {
+    title: { es: 'Claude Code in Action', en: 'Claude Code in Action' },
+    institution: 'Anthropic',
+    detail: { es: 'Certificación oficial (Ene 2026)', en: 'Official certification (Jan 2026)' },
+    url: 'https://verify.skilljar.com/c/49obzdit65bo',
+  },
 ];
 
 const skills = {
   'Frontend': ['Angular 18', 'React', 'Next.js', 'Astro', 'shadcn/ui', 'Tailwind CSS'],
   'Backend': ['Node.js', 'Express', 'C# / .NET', 'Python', 'Prisma ORM'],
   'AI & Data': ['Gemini 2.0 Flash', 'pgvector', 'HuggingFace', 'Supabase', 'RAG'],
-  'DevOps & Tools': ['GitHub Actions', 'Git', 'Docker', 'Vercel', 'Claude Code', 'Cursor'],
+  'DevOps & Tools': ['GitHub Actions', 'Git', 'Docker', 'Vercel', 'Claude Code', 'Codex'],
 };
 ---
 
@@ -236,6 +242,21 @@ const skills = {
                 <p class="text-sm" style="color: var(--color-text-secondary);">
                   <span data-locale-es>{edu.detail.es}</span>
                   <span data-locale-en class="hidden">{edu.detail.en}</span>
+                  {'url' in edu && (
+                    <>
+                      {' · '}
+                      <a
+                        href={edu.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="font-medium"
+                        style="color: var(--color-accent);"
+                      >
+                        <span data-locale-es>Ver credencial</span>
+                        <span data-locale-en class="hidden">View credential</span>
+                      </a>
+                    </>
+                  )}
                 </p>
               </div>
             ))}

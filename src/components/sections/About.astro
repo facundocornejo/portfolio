@@ -18,8 +18,9 @@ const stack = [
 
 const aiTools = [
   { name: 'Claude Code', icon: 'claude' },
-  { name: 'Cursor', icon: 'cursor' },
+  { name: 'Codex', icon: 'openai' },
   { name: 'Gemini CLI', icon: 'gemini' },
+  { name: 'Whisper', icon: 'openai' },
 ];
 ---
 
@@ -62,10 +63,10 @@ const aiTools = [
         </p>
         <p class="text-base leading-relaxed" style="color: var(--color-text-secondary);">
           <span data-locale-es>
-            Mi diferencial: integro herramientas de IA en mi workflow de desarrollo. No como reemplazo, sino como multiplicador. Claude Code, Cursor, APIs de Gemini — uso todo lo que me haga más productivo y me permita entregar mejores resultados.
+            Mi diferencial: integro herramientas de IA en mi workflow de desarrollo. No como reemplazo, sino como multiplicador. Claude Code, Codex, Gemini CLI, Whisper — uso todo lo que me haga más productivo y me permita entregar mejores resultados.
           </span>
           <span data-locale-en class="hidden">
-            My edge: I integrate AI tools into my development workflow. Not as a replacement, but as a multiplier. Claude Code, Cursor, Gemini APIs — I use everything that makes me more productive and lets me deliver better results.
+            My edge: I integrate AI tools into my development workflow. Not as a replacement, but as a multiplier. Claude Code, Codex, Gemini CLI, Whisper — I use everything that makes me more productive and lets me deliver better results.
           </span>
         </p>
 
@@ -82,6 +83,14 @@ const aiTools = [
               </span>
             ))}
           </div>
+          <p class="text-sm mt-3" style="color: var(--color-text-secondary);">
+            <span data-locale-es>
+              Certificación de Anthropic: <a href="https://verify.skilljar.com/c/49obzdit65bo" target="_blank" rel="noopener noreferrer" class="font-medium cert-link">Claude Code in Action</a>.
+            </span>
+            <span data-locale-en class="hidden">
+              Anthropic certification: <a href="https://verify.skilljar.com/c/49obzdit65bo" target="_blank" rel="noopener noreferrer" class="font-medium cert-link">Claude Code in Action</a>.
+            </span>
+          </p>
         </div>
       </div>
 
@@ -115,6 +124,21 @@ const aiTools = [
 </section>
 
 <style>
+  .cert-link {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 3px;
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+  }
+
+  .cert-link:hover {
+    color: var(--color-accent);
+    text-decoration-color: var(--color-accent);
+  }
+
   .about-badge {
     display: inline-block;
     padding: 0.3rem 0.75rem;
