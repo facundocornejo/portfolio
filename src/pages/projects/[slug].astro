@@ -6,7 +6,10 @@ import { caseStudies } from '@content/case-studies';
 import { projects } from '@content/projects';
 
 export function getStaticPaths() {
-  return caseStudies.map((cs) => ({ params: { slug: cs.slug }, props: { cs } }));
+  return caseStudies.map((cs) => ({
+    params: { slug: cs.slug },
+    props: { cs },
+  }));
 }
 
 const { cs } = Astro.props;
@@ -22,8 +25,18 @@ const project = projects.find((p) => p.id === cs.projectId)!;
     <article class="mx-auto max-w-3xl px-4 sm:px-6 py-16">
       {/* Back link */}
       <a href="/#projects" class="cs-back">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"></path>
         </svg>
         <span data-locale-es>Volver a proyectos</span>
         <span data-locale-en class="hidden">Back to projects</span>
@@ -40,11 +53,67 @@ const project = projects.find((p) => p.id === cs.projectId)!;
         <span data-locale-en class="hidden">{cs.tagline.en}</span>
       </p>
 
+      {/* Accion principal: si hay app en vivo, es lo primero que se ve */}
+      <div class="cs-actions">
+        {
+          project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cs-link-primary"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+              <span data-locale-es>Ver la app en vivo</span>
+              <span data-locale-en class="hidden">
+                See the live app
+              </span>
+            </a>
+          )
+        }
+        {
+          project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cs-link-secondary"
+            >
+              <span data-locale-es>Ver código</span>
+              <span data-locale-en class="hidden">
+                View code
+              </span>
+            </a>
+          )
+        }
+        {
+          !project.demo && project.demoNote && (
+            <span class="cs-demo-note">
+              <span data-locale-es>{project.demoNote.es}</span>
+              <span data-locale-en class="hidden">
+                {project.demoNote.en}
+              </span>
+            </span>
+          )
+        }
+      </div>
+
       {/* Stack */}
       <div class="flex flex-wrap gap-1.5 mb-10">
-        {project.stack.map((tech) => (
-          <span class="cs-badge">{tech}</span>
-        ))}
+        {project.stack.map((tech) => <span class="cs-badge">{tech}</span>)}
       </div>
 
       {/* Cover image — browser mockup */}
@@ -56,75 +125,260 @@ const project = projects.find((p) => p.id === cs.projectId)!;
           <span class="browser-url"></span>
         </div>
         <div class="cs-image-inner">
-          <img
-            src={project.image}
-            alt={cs.title.es}
-            class="w-full h-full object-cover"
-            loading="lazy"
-            onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-          />
+          {
+            project.media?.[0] ? (
+              <button
+                type="button"
+                class="cs-zoom"
+                aria-label="Ampliar imagen / Zoom in"
+                data-src={project.media[0].src}
+                data-alt={project.media[0].alt.es}
+                data-caption-es={project.media[0].caption?.es ?? project.media[0].alt.es}
+                data-caption-en={project.media[0].caption?.en ?? project.media[0].alt.en}
+              >
+                <img
+                  src={project.media[0].src}
+                  alt={project.media[0].alt.es}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </button>
+            ) : (
+              <img
+                src={project.image}
+                alt={cs.title.es}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onerror="this.onerror=null;this.src='/images/placeholder.svg';"
+              />
+            )
+          }
         </div>
       </div>
 
       {/* Sections */}
-      {cs.sections.map((section) => (
-        <section class="cs-section">
-          <h2 class="cs-heading">
-            <span data-locale-es>{section.heading.es}</span>
-            <span data-locale-en class="hidden">{section.heading.en}</span>
-          </h2>
+      {
+        cs.sections.map((section) => (
+          <section class="cs-section">
+            <h2 class="cs-heading">
+              <span data-locale-es>{section.heading.es}</span>
+              <span data-locale-en class="hidden">
+                {section.heading.en}
+              </span>
+            </h2>
 
-          {section.body && (
-            <p class="cs-body">
-              <span data-locale-es>{section.body.es}</span>
-              <span data-locale-en class="hidden">{section.body.en}</span>
-            </p>
-          )}
+            {section.body && (
+              <p class="cs-body">
+                <span data-locale-es>{section.body.es}</span>
+                <span data-locale-en class="hidden">
+                  {section.body.en}
+                </span>
+              </p>
+            )}
 
-          {section.bullets && (
-            <>
-              <ul data-locale-es class="cs-list">
-                {section.bullets.es.map((item) => (
-                  <li>
-                    <span class="cs-bullet" aria-hidden="true">&#x2192;</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <ul data-locale-en class="cs-list hidden">
-                {section.bullets.en.map((item) => (
-                  <li>
-                    <span class="cs-bullet" aria-hidden="true">&#x2192;</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </section>
-      ))}
+            {section.bullets && (
+              <>
+                <ul data-locale-es class="cs-list">
+                  {section.bullets.es.map((item) => (
+                    <li>
+                      <span class="cs-bullet" aria-hidden="true">
+                        &#x2192;
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <ul data-locale-en class="cs-list hidden">
+                  {section.bullets.en.map((item) => (
+                    <li>
+                      <span class="cs-bullet" aria-hidden="true">
+                        &#x2192;
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </section>
+        ))
+      }
+
+      {/* Galeria: el resto de las piezas, con su pie */}
+      {
+        project.media && project.media.length > 1 && (
+          <section class="cs-section">
+            <h2 class="cs-heading">
+              <span data-locale-es>En pantalla</span>
+              <span data-locale-en class="hidden">
+                On screen
+              </span>
+            </h2>
+            <div class="cs-gallery">
+              {project.media.slice(1).map((shot) => (
+                <figure class="cs-shot">
+                  <button
+                    type="button"
+                    class="cs-zoom"
+                    aria-label="Ampliar imagen / Zoom in"
+                    data-src={shot.src}
+                    data-alt={shot.alt.es}
+                    data-caption-es={shot.caption?.es ?? shot.alt.es}
+                    data-caption-en={shot.caption?.en ?? shot.alt.en}
+                  >
+                    <div class="cs-shot-frame">
+                      <img
+                        src={shot.src}
+                        alt={shot.alt.es}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      {shot.animated && (
+                        <span class="cs-shot-badge">
+                          <span data-locale-es>En movimiento</span>
+                          <span data-locale-en class="hidden">
+                            Animated
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                  {shot.caption && (
+                    <figcaption class="cs-shot-caption">
+                      <span data-locale-es>{shot.caption.es}</span>
+                      <span data-locale-en class="hidden">
+                        {shot.caption.en}
+                      </span>
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+            </div>
+          </section>
+        )
+      }
 
       {/* CTA footer */}
       <div class="cs-cta">
         <div class="flex flex-wrap gap-3">
-          {project.github && (
-            <a href={project.github} target="_blank" rel="noopener noreferrer" class="cs-link-secondary">
-              <span data-locale-es>Ver código</span>
-              <span data-locale-en class="hidden">View code</span>
-            </a>
-          )}
-          {project.demo && (
-            <a href={project.demo} target="_blank" rel="noopener noreferrer" class="cs-link-secondary">
-              <span data-locale-es>Ver demo</span>
-              <span data-locale-en class="hidden">View demo</span>
-            </a>
-          )}
+          {
+            project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cs-link-secondary"
+              >
+                <span data-locale-es>Ver código</span>
+                <span data-locale-en class="hidden">
+                  View code
+                </span>
+              </a>
+            )
+          }
+          {
+            project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cs-link-secondary"
+              >
+                <span data-locale-es>Ver demo</span>
+                <span data-locale-en class="hidden">
+                  View demo
+                </span>
+              </a>
+            )
+          }
           <a href="/#contact" class="cs-link-primary">
             <span data-locale-es>Hablemos</span>
             <span data-locale-en class="hidden">Let's talk</span>
           </a>
         </div>
       </div>
+
+      {/* Lightbox: vista ampliada de cualquier captura del case study */}
+      {
+        project.media && project.media.length > 0 && (
+          <dialog class="cs-lightbox" aria-label="Vista ampliada / Enlarged view">
+            <button
+              type="button"
+              class="cs-lightbox-btn cs-lightbox-close"
+              aria-label="Cerrar / Close (Esc)"
+              data-lightbox-close
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            {project.media.length > 1 && (
+              <button
+                type="button"
+                class="cs-lightbox-btn cs-lightbox-prev"
+                aria-label="Anterior / Previous"
+                data-lightbox-prev
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+            )}
+            {project.media.length > 1 && (
+              <button
+                type="button"
+                class="cs-lightbox-btn cs-lightbox-next"
+                aria-label="Siguiente / Next"
+                data-lightbox-next
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            )}
+            <figure class="cs-lightbox-figure">
+              <img src={project.media[0].src} alt={project.media[0].alt.es} />
+              <figcaption class="cs-lightbox-bar">
+                <span class="cs-lightbox-caption" />
+                {project.media.length > 1 && <span class="cs-lightbox-counter" />}
+              </figcaption>
+            </figure>
+          </dialog>
+        )
+      }
     </article>
   </main>
   <Footer />
@@ -204,8 +458,77 @@ const project = projects.find((p) => p.id === cs.projectId)!;
     overflow: hidden;
   }
 
+  .cs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /*
+   * Cuando no hay app publica, un chip apagado explica por que. Es
+   * deliberadamente no clickeable: un boton muerto es peor que una frase.
+   */
+  .cs-demo-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px dashed var(--color-border);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
   .cs-section {
     margin-bottom: 2.5rem;
+  }
+
+  .cs-gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 720px) {
+    .cs-gallery {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .cs-shot-frame {
+    position: relative;
+    border-radius: 0.625rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-secondary);
+  }
+  .cs-shot-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .cs-shot-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: white;
+    background-color: var(--color-accent);
+  }
+
+  .cs-shot-caption {
+    margin-top: 0.625rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
   }
 
   .cs-heading {
@@ -236,6 +559,15 @@ const project = projects.find((p) => p.id === cs.projectId)!;
     line-height: 1.6;
     color: var(--color-text-secondary);
   }
+  /*
+   * Astro scopea los estilos del componente como `.cs-list[data-astro-cid-...]`,
+   * que gana en especificidad contra el `.hidden` de Tailwind. Sin esta regla la
+   * lista del idioma oculto se sigue mostrando y la pagina sale bilingue a la vez.
+   */
+  .cs-list.hidden {
+    display: none;
+  }
+
   .cs-bullet {
     color: var(--color-accent);
     font-family: var(--font-mono);
@@ -289,14 +621,179 @@ const project = projects.find((p) => p.id === cs.projectId)!;
       transform: none;
     }
   }
+
+  /* --- Lightbox --- */
+
+  .cs-zoom {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    text-align: inherit;
+    cursor: zoom-in;
+    border-radius: 0.625rem;
+  }
+  .cs-image-inner .cs-zoom {
+    height: 100%;
+    border-radius: 0;
+  }
+  .cs-zoom:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .cs-lightbox {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+  }
+  .cs-lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cs-lightbox::backdrop {
+    background: rgba(9, 11, 16, 0.85);
+    backdrop-filter: blur(6px);
+  }
+
+  /*
+   * Bloquea el scroll de fondo mientras el lightbox esta abierto. Se hace por
+   * CSS y no restaurando overflow en el evento `close` del dialog: al depender
+   * solo del atributo [open], no hay estado de JS que pueda quedar colgado.
+   */
+  :global(html:has(.cs-lightbox[open])) {
+    overflow: hidden;
+  }
+
+  .cs-lightbox-figure {
+    max-width: min(1200px, 100%);
+    margin: 0;
+    padding: 3.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .cs-lightbox-figure img {
+    display: block;
+    max-width: 100%;
+    max-height: 78vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 0.625rem;
+  }
+
+  /* El fondo del lightbox es oscuro en ambos temas: colores fijos, no tokens. */
+  .cs-lightbox-bar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 65ch;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .cs-lightbox-caption {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .cs-lightbox-counter {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.55);
+    flex-shrink: 0;
+  }
+
+  .cs-lightbox-btn {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: none;
+    border-radius: 9999px;
+    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .cs-lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+  }
+  .cs-lightbox-btn:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+  .cs-lightbox-close {
+    top: 1rem;
+    right: 1rem;
+  }
+  .cs-lightbox-prev {
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .cs-lightbox-next {
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 639px) {
+    .cs-lightbox-figure {
+      padding: 3.5rem 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cs-lightbox[open] {
+      animation: cs-lightbox-in 0.18s ease-out;
+    }
+    .cs-lightbox[open]::backdrop {
+      animation: cs-lightbox-fade 0.18s ease-out;
+    }
+  }
+  @keyframes cs-lightbox-in {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes cs-lightbox-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 </style>
 
 <script>
   import type { Locale } from '@i18n/store';
 
   function updateLocale(locale: Locale) {
-    const esElements = document.querySelectorAll<HTMLElement>('[data-locale-es]');
-    const enElements = document.querySelectorAll<HTMLElement>('[data-locale-en]');
+    const esElements =
+      document.querySelectorAll<HTMLElement>('[data-locale-es]');
+    const enElements =
+      document.querySelectorAll<HTMLElement>('[data-locale-en]');
 
     if (locale === 'en') {
       esElements.forEach((el) => el.classList.add('hidden'));
@@ -313,4 +810,68 @@ const project = projects.find((p) => p.id === cs.projectId)!;
   window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
     updateLocale(e.detail);
   }) as EventListener);
+
+  // --- Lightbox ---
+  function initLightbox() {
+    const dialog = document.querySelector<HTMLDialogElement>('.cs-lightbox');
+    if (!dialog) return;
+
+    const triggers = Array.from(
+      document.querySelectorAll<HTMLButtonElement>('.cs-zoom'),
+    );
+    const img = dialog.querySelector<HTMLImageElement>('.cs-lightbox-figure img');
+    const caption = dialog.querySelector<HTMLElement>('.cs-lightbox-caption');
+    const counter = dialog.querySelector<HTMLElement>('.cs-lightbox-counter');
+    if (!triggers.length || !img || !caption) return;
+
+    let index = 0;
+
+    function render() {
+      const trigger = triggers[index];
+      if (!trigger || !img || !caption) return;
+      img.src = trigger.dataset.src ?? '';
+      img.alt = trigger.dataset.alt ?? '';
+      const locale = document.documentElement.lang === 'en' ? 'en' : 'es';
+      caption.textContent =
+        (locale === 'en' ? trigger.dataset.captionEn : trigger.dataset.captionEs) ?? '';
+      if (counter) counter.textContent = `${index + 1} / ${triggers.length}`;
+    }
+
+    function step(delta: number) {
+      index = (index + delta + triggers.length) % triggers.length;
+      render();
+    }
+
+    triggers.forEach((trigger, i) => {
+      trigger.addEventListener('click', () => {
+        index = i;
+        render();
+        dialog.showModal();
+      });
+    });
+
+    dialog
+      .querySelector('[data-lightbox-close]')
+      ?.addEventListener('click', () => dialog.close());
+    dialog
+      .querySelector('[data-lightbox-prev]')
+      ?.addEventListener('click', () => step(-1));
+    dialog
+      .querySelector('[data-lightbox-next]')
+      ?.addEventListener('click', () => step(1));
+
+    // Un click que llega al propio dialog cayo fuera de la imagen: cerrar.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+
+    window.addEventListener('locale-change', render);
+  }
+
+  initLightbox();
 </script>
