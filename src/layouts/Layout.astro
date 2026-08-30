@@ -60,8 +60,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#10151a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -87,5 +87,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body class="min-h-screen antialiased">
     <slot />
+    <script>
+      // Reveal-on-scroll global (antes vivia acoplado a Projects.astro).
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches;
+
+      const fades = document.querySelectorAll('.scroll-fade');
+      if (prefersReducedMotion) {
+        fades.forEach((el) => el.classList.add('visible'));
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08 },
+        );
+        fades.forEach((el) => observer.observe(el));
+      }
+    </script>
   </body>
 </html>

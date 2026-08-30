@@ -4,70 +4,76 @@
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 /* Fonts */
-@import '@fontsource-variable/schibsted-grotesk';
-@import '@fontsource-variable/bricolage-grotesque';
-@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/petrona';
+@import '@fontsource-variable/public-sans';
+@import '@fontsource/fragment-mono';
 
 /* ============================================
    Tailwind Theme — Fonts
    ============================================ */
 @theme {
-  --font-sans: 'Schibsted Grotesk Variable', system-ui, sans-serif;
-  --font-display: 'Bricolage Grotesque Variable', 'Schibsted Grotesk Variable', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --font-sans: 'Public Sans Variable', system-ui, sans-serif;
+  --font-display: 'Petrona Variable', Georgia, serif;
+  --font-mono: 'Fragment Mono', ui-monospace, monospace;
 }
 
 /* ============================================
    CSS Custom Properties — Design Tokens
    ============================================ */
 
+/*
+ * "El Indice": papel calido de dia, tinta petroleo de noche, ambar como voz.
+ * Todos los pares texto/fondo validados >= 4.5:1 (script de contraste).
+ */
 :root,
 :root[data-theme='light'] {
   color-scheme: light;
 
-  /* Backgrounds */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-bg-card: #ffffff;
+  /* Backgrounds — papel calido */
+  --color-bg-primary: #f7f4ee;
+  --color-bg-secondary: #efeae1;
+  --color-bg-card: #fdfbf7;
 
-  /* Text — muted mantiene >= 4.5:1 sobre bg-primary y bg-secondary */
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-muted: #64748b;
+  /* Text — tinta calida */
+  --color-text-primary: #23201a;
+  --color-text-secondary: #57524a;
+  --color-text-muted: #6e685e;
 
-  /* Accent — teal (profundo: sirve como texto chico con AA) */
-  --color-accent: #0f766e;
-  --color-accent-hover: #115e59;
-  --color-accent-light: #f0fdfa;
+  /* Accent — ambar profundo (legible como texto sobre papel) */
+  --color-accent: #8a5f12;
+  --color-accent-hover: #6f4c0e;
+  --color-accent-light: #f3e8d3;
   /* Texto sobre fondos accent (botones, badges) */
-  --color-accent-contrast: #ffffff;
+  --color-accent-contrast: #fdfbf7;
 
   /* Semantic */
   --color-error: #b91c1c;
 
   /* Borders */
-  --color-border: #e2e8f0;
+  --color-border: #ddd5c8;
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --color-bg-primary: #0a0a0b;
-  --color-bg-secondary: #141416;
-  --color-bg-card: #1c1c1f;
+  /* Backgrounds — tinta petroleo */
+  --color-bg-primary: #10151a;
+  --color-bg-secondary: #151c22;
+  --color-bg-card: #1a222a;
 
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #7d8896;
+  --color-text-primary: #eef1f3;
+  --color-text-secondary: #c6cdd3;
+  --color-text-muted: #8a95a0;
 
-  --color-accent: #818cf8;
-  --color-accent-hover: #6366f1;
-  --color-accent-light: #1e1b4b;
-  --color-accent-contrast: #0a0a0b;
+  /* Accent — ambar calido */
+  --color-accent: #dfa94a;
+  --color-accent-hover: #f3c46c;
+  --color-accent-light: #2a2113;
+  --color-accent-contrast: #10151a;
 
   --color-error: #f87171;
 
-  --color-border: #27272a;
+  --color-border: #26303a;
 }
 
 /* ============================================
@@ -170,6 +176,15 @@ section[id] {
     transform: none;
     transition: none;
   }
+}
+
+/* Etiqueta mono chica (roles, metadatos, anios del indice) */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
 }
 
 /* ============================================
