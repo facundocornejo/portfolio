@@ -9,6 +9,8 @@ export interface CaseStudySection {
 export interface CaseStudy {
   /** URL slug under /projects/ */
   slug: string;
+  /** Color de identidad del caso (banner y headings), valido en ambos temas via color-mix. */
+  accent: string;
   /** Links back to the project in projects.ts (by id) */
   projectId: string;
   title: Record<Locale, string>;
@@ -19,6 +21,7 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     slug: 'ultra-erp',
+    accent: '#8b74e8',
     projectId: 'supleya',
     title: { es: 'ULTRA ERP', en: 'ULTRA ERP' },
     tagline: {
@@ -115,6 +118,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'adoptly',
+    accent: '#d97f4a',
     projectId: 'adoptly',
     title: {
       es: 'Adoptly — Plataforma de Adopción Animal',
@@ -223,6 +227,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'punto-natural',
+    accent: '#46a877',
     projectId: 'punto-natural',
     title: {
       es: 'Punto Natural — POS/ERP en Go',
@@ -329,6 +334,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'rodak',
+    accent: '#a06a3c',
     projectId: 'rodak',
     title: {
       es: 'Rodak — Rescate, seguridad y migración de un e-commerce',
@@ -409,6 +415,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'infra-coolify',
+    accent: '#3fa8b8',
     projectId: 'infra-coolify',
     title: {
       es: 'Infraestructura propia — VPS, Coolify y un casi-lockout',
@@ -483,6 +490,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'beast-motors',
+    accent: '#d15b52',
     projectId: 'beastmotor',
     title: {
       es: 'Beast Motors — Catálogo de una concesionaria',
@@ -577,6 +585,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'liga-al-touch',
+    accent: '#4a90c9',
     projectId: 'liga-al-touch',
     title: {
       es: 'Liga Al Touch — Gestión de una liga amateur',
@@ -663,6 +672,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'dobleg',
+    accent: '#708499',
     projectId: 'dobleg',
     title: {
       es: 'Dobleg Premoldeados — Sitio corporativo',
@@ -749,6 +759,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'flight-bot',
+    accent: '#5a8fd4',
     projectId: 'flight-bot',
     title: {
       es: 'Bot de Vuelos — Alertas de precio',
