@@ -1,122 +1,111 @@
 ---
 ---
 
-<section id="workflow" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-5xl">
-    <p class="section-eyebrow scroll-fade" data-i18n-key="workflow.eyebrow">03 — Proceso</p>
-    <h2
-      class="text-3xl sm:text-4xl font-bold mb-4 scroll-fade"
-      style="color: var(--color-text-primary); --stagger: 0.05s;"
-      data-i18n-key="workflow.title"
-    >
-      Cómo trabajo con IA
+<section id="workflow" class="pt-16 sm:pt-20 px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-3xl how-wrap scroll-fade">
+    <h2 class="how-heading">
+      <span data-locale-es>Cómo trabajo.</span>
+      <span data-locale-en class="hidden">How I work.</span>
     </h2>
-    <p
-      class="text-base mb-12 max-w-2xl scroll-fade"
-      style="color: var(--color-text-muted); --stagger: 0.1s;"
-      data-i18n-key="workflow.subtitle"
-    >
-      La IA es una herramienta que potencia, no un atajo que reemplaza. Programo con ella: yo defino la arquitectura y las decisiones, la IA ejecuta más rápido. El criterio es humano.
-    </p>
-
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="workflow-card scroll-fade" style="--stagger: 0.15s;">
-        <span class="workflow-num">01</span>
-        <h3 class="workflow-card-title" data-i18n-key="workflow.step1.title">Contexto que persiste</h3>
-        <p class="workflow-card-body" data-i18n-key="workflow.step1.body">
-          Memoria persistente entre sesiones: el asistente no arranca de cero. Conoce el proyecto, sus decisiones y convenciones, y mantiene la coherencia.
-        </p>
-      </div>
-
-      <div class="workflow-card scroll-fade" style="--stagger: 0.25s;">
-        <span class="workflow-num">02</span>
-        <h3 class="workflow-card-title" data-i18n-key="workflow.step2.title">Agentes especializados</h3>
-        <p class="workflow-card-body" data-i18n-key="workflow.step2.body">
-          Delego tareas a subagentes enfocados —arquitectura, testing, seguridad, exploración— que trabajan en paralelo. Yo orquesto; ellos ejecutan.
-        </p>
-      </div>
-
-      <div class="workflow-card scroll-fade" style="--stagger: 0.35s;">
-        <span class="workflow-num">03</span>
-        <h3 class="workflow-card-title" data-i18n-key="workflow.step3.title">Plan, ejecución y revisión</h3>
-        <p class="workflow-card-body" data-i18n-key="workflow.step3.body">
-          Primero un plan explícito, después el código. Reviso y valido cada cambio antes de integrarlo: la IA propone, yo decido.
-        </p>
-      </div>
-    </div>
-
-    <p class="workflow-example scroll-fade" style="--stagger: 0.4s;" data-i18n-key="workflow.example">
-      Así construí el RAG de ULTRA ERP: la IA aceleró la implementación, pero las decisiones de arquitectura —usar pgvector, qué indexar, cómo dar contexto al modelo— fueron mías.
-    </p>
+    <ul class="how-list">
+      <li>
+        <span data-locale-es>
+          <strong>El criterio es humano.</strong> Trabajo con IA todos los días
+          — Claude Code, Codex, Gemini CLI, Whisper — pero la arquitectura y las
+          decisiones son mías. Certificación
+          <a href="https://verify.skilljar.com/c/49obzdit65bo" target="_blank" rel="noopener noreferrer">Claude Code in Action</a>
+          (Anthropic, 2026).
+        </span>
+        <span data-locale-en class="hidden">
+          <strong>Judgment stays human.</strong> I work with AI every day —
+          Claude Code, Codex, Gemini CLI, Whisper — but the architecture and the
+          decisions are mine. Certified:
+          <a href="https://verify.skilljar.com/c/49obzdit65bo" target="_blank" rel="noopener noreferrer">Claude Code in Action</a>
+          (Anthropic, 2026).
+        </span>
+      </li>
+      <li>
+        <span data-locale-es>
+          <strong>Relevar antes de programar.</strong> Cada sistema salió de
+          escuchar una operación real: qué se anota a mano, qué se pierde, qué
+          duele.
+        </span>
+        <span data-locale-en class="hidden">
+          <strong>Discovery before code.</strong> Every system came out of
+          listening to a real operation: what gets written by hand, what gets
+          lost, what hurts.
+        </span>
+      </li>
+      <li>
+        <span data-locale-es>
+          <strong>Entregado es verificado.</strong> Nada se marca listo sin
+          correr contra el sistema real. Los mocks no atienden mostradores.
+        </span>
+        <span data-locale-en class="hidden">
+          <strong>Shipped means verified.</strong> Nothing gets marked done
+          without running against the real system. Mocks don't run shop
+          counters.
+        </span>
+      </li>
+    </ul>
   </div>
 </section>
 
 <style>
-  /* Las cards no son clickeables: sin hover, la jerarquia la da el contenido. */
-  .workflow-card {
-    padding: 1.75rem;
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-bg-card);
+  .how-wrap {
+    border-top: 1px solid var(--color-border);
+    padding-top: 2.5rem;
   }
 
-  .workflow-num {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 1.75rem;
-    font-weight: 700;
+  .how-heading {
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 600;
     color: var(--color-accent);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.125rem;
   }
 
-  .workflow-card-title {
-    font-size: 1.125rem;
-    font-weight: 700;
+  .how-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.875rem;
+    max-width: 62ch;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .how-list strong {
     color: var(--color-text-primary);
-    margin-bottom: 0.5rem;
+    font-weight: 600;
   }
 
-  .workflow-card-body {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--color-text-secondary);
-  }
-
-  .workflow-example {
-    margin-top: 2rem;
-    padding: 1.25rem 1.5rem;
-    border-radius: 0.75rem;
-    background-color: var(--color-accent-light);
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--color-text-secondary);
-  }
-
-  /*
-   * Marca de "caso real" via ::before: el contenido del parrafo se reemplaza
-   * por textContent al cambiar idioma, asi que la decoracion no puede ser un
-   * hijo del elemento.
-   */
-  .workflow-example::before {
-    content: '\00BB  ';
-    font-family: var(--font-mono);
-    font-weight: 700;
+  .how-list a {
     color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+  }
+
+  .how-list a:hover {
+    text-decoration-color: var(--color-accent);
   }
 </style>
 
 <script>
   import type { Locale } from '@i18n/store';
-  import { ui } from '@i18n/ui';
 
   function updateWorkflowLocale(locale: Locale) {
-    const i18nElements = document.querySelectorAll<HTMLElement>('#workflow [data-i18n-key]');
-    i18nElements.forEach((el) => {
-      const key = el.dataset.i18nKey as keyof (typeof ui)['es'];
-      if (key && ui[locale]?.[key]) {
-        el.textContent = ui[locale][key];
-      }
-    });
+    const esElements = document.querySelectorAll<HTMLElement>('#workflow [data-locale-es]');
+    const enElements = document.querySelectorAll<HTMLElement>('#workflow [data-locale-en]');
+
+    if (locale === 'en') {
+      esElements.forEach((el) => el.classList.add('hidden'));
+      enElements.forEach((el) => el.classList.remove('hidden'));
+    } else {
+      esElements.forEach((el) => el.classList.remove('hidden'));
+      enElements.forEach((el) => el.classList.add('hidden'));
+    }
   }
 
   const initialLocale = (document.documentElement.lang || 'es') as Locale;

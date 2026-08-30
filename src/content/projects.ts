@@ -10,11 +10,19 @@ export interface ProjectMedia {
   animated?: boolean;
 }
 
+/** Grupo del indice de la home: en produccion / en camino / abajo del capo. */
+export type IndexGroup = 'produccion' | 'camino' | 'capo';
+
 export interface Project {
   id: string;
   title: Record<Locale, string>;
   role: Record<Locale, string>;
   description: Record<Locale, string>;
+  /** Anio que se muestra al margen del indice (texto libre: "2024 →"). */
+  year: string;
+  indexGroup: IndexGroup;
+  /** Estado corto para el indice y el banner del caso. Default: en produccion. */
+  status?: Record<Locale, string>;
   stack: string[];
   highlights: Record<Locale, string[]>;
   image: string;
@@ -36,6 +44,8 @@ export const projects: Project[] = [
   {
     id: 'supleya',
     featured: true,
+    year: '2024 →',
+    indexGroup: 'produccion',
     caseStudySlug: 'ultra-erp',
     title: { es: 'ULTRA ERP', en: 'ULTRA ERP' },
     role: {
@@ -74,6 +84,8 @@ export const projects: Project[] = [
   },
   {
     id: 'adoptly',
+    year: '2025',
+    indexGroup: 'produccion',
     caseStudySlug: 'adoptly',
     title: {
       es: 'Adoptly — Plataforma de Adopción Animal',
@@ -145,6 +157,8 @@ export const projects: Project[] = [
   },
   {
     id: 'beastmotor',
+    year: '2025',
+    indexGroup: 'produccion',
     caseStudySlug: 'beast-motors',
     title: {
       es: 'Beast Motors — Concesionaria',
@@ -221,6 +235,9 @@ export const projects: Project[] = [
   },
   {
     id: 'punto-natural',
+    year: '2026',
+    indexGroup: 'camino',
+    status: { es: 'En staging', en: 'In staging' },
     caseStudySlug: 'punto-natural',
     title: {
       es: 'Punto Natural — POS/ERP',
@@ -315,6 +332,9 @@ export const projects: Project[] = [
   },
   {
     id: 'rodak',
+    year: '2026',
+    indexGroup: 'camino',
+    status: { es: 'Rediseño en curso', en: 'Redesign in progress' },
     inDevelopment: true,
     caseStudySlug: 'rodak',
     title: {
@@ -352,6 +372,9 @@ export const projects: Project[] = [
   },
   {
     id: 'liga-al-touch',
+    year: '2026',
+    indexGroup: 'camino',
+    status: { es: 'Sale con la próxima temporada', en: 'Launching next season' },
     caseStudySlug: 'liga-al-touch',
     inDevelopment: true,
     title: {
@@ -387,6 +410,8 @@ export const projects: Project[] = [
   },
   {
     id: 'dobleg',
+    year: '2026',
+    indexGroup: 'produccion',
     caseStudySlug: 'dobleg',
     title: {
       es: 'Dobleg Premoldeados — Sitio corporativo',
@@ -440,6 +465,9 @@ export const projects: Project[] = [
   },
   {
     id: 'infra-coolify',
+    year: '2026',
+    indexGroup: 'capo',
+    status: { es: 'Infraestructura privada', en: 'Private infrastructure' },
     caseStudySlug: 'infra-coolify',
     title: {
       es: 'Infraestructura propia — VPS y Coolify',
@@ -483,6 +511,8 @@ export const projects: Project[] = [
   },
   {
     id: 'flight-bot',
+    year: '2024',
+    indexGroup: 'produccion',
     caseStudySlug: 'flight-bot',
     title: {
       es: 'Bot de Vuelos — Price Alert',

@@ -1,363 +1,256 @@
 ---
-import { projects } from '@content/projects';
+import { projects, type IndexGroup } from '@content/projects';
 
 const visibleProjects = projects.filter((p) => p.visible !== false);
+
+const groups: { key: IndexGroup; heading: { es: string; en: string } }[] = [
+  { key: 'produccion', heading: { es: 'En producción.', en: 'In production.' } },
+  { key: 'camino', heading: { es: 'En camino.', en: 'In the works.' } },
+  { key: 'capo', heading: { es: 'Abajo del capó.', en: 'Under the hood.' } },
+];
 ---
 
-<section id="projects" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-6xl">
-    <p class="section-eyebrow scroll-fade" data-i18n-key="projects.eyebrow">
-      01 — Trabajo seleccionado
-    </p>
-    <h2
-      class="text-3xl sm:text-4xl font-bold mb-4 scroll-fade"
-      style="color: var(--color-text-primary);"
-      data-i18n-key="projects.title"
-    >
-      Proyectos
-    </h2>
-    <p
-      class="text-base mb-12 scroll-fade"
-      style="color: var(--color-text-muted); --stagger: 0.05s;"
-      data-i18n-key="projects.subtitle"
-    >
-      Productos reales, con usuarios reales. Esto es lo que construí.
-    </p>
-
-    <div class="grid gap-8 md:grid-cols-2">
-      {
-        visibleProjects.map((project, i) => (
-          <article
-            class:list={[
-              'project-card scroll-fade group rounded-xl overflow-hidden relative',
-              { 'md:col-span-2': project.featured },
-            ]}
-            style={`--stagger: ${i * 0.1}s;`}
-          >
-            {/* Accent line top */}
-            <div class="accent-line" aria-hidden="true" />
-
-            {/* Featured project: side-by-side on desktop */}
-            <div class:list={[{ 'md:flex': project.featured }]}>
-              {/* Image with dot pattern */}
-              <div
-                class:list={[
-                  'project-image-wrapper aspect-video overflow-hidden relative flex flex-col',
-                  project.featured
-                    ? 'md:w-1/2 md:aspect-auto md:min-h-full'
-                    : '',
-                ]}
-              >
-                {/* Browser chrome */}
-                <div class="browser-bar" aria-hidden="true">
-                  <span class="browser-dot" />
-                  <span class="browser-dot" />
-                  <span class="browser-dot" />
-                  <span class="browser-url" />
-                </div>
-                <div class="relative flex-1 overflow-hidden">
-                  <div
-                    class="dot-pattern absolute inset-0"
-                    aria-hidden="true"
-                  />
-                  <img
-                    src={project.media?.[0]?.src ?? project.image}
-                    alt={project.media?.[0]?.alt.es ?? project.title.es}
-                    class="w-full h-full object-cover relative z-[1] transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    onerror="this.onerror=null;this.src='/images/placeholder.svg';"
-                  />
-                </div>
-              </div>
-
-              {/* Content */}
-              <div
-                class:list={[
-                  'p-6',
-                  project.featured
-                    ? 'md:w-1/2 md:flex md:flex-col md:justify-center'
-                    : '',
-                ]}
-              >
-                {/* Title + featured badge */}
-                <div class="flex items-center gap-2 mb-2">
-                  <h3
-                    class="text-xl font-bold"
-                    style="color: var(--color-text-primary);"
-                  >
-                    <span data-locale-es>{project.title.es}</span>
-                    <span data-locale-en class="hidden">
-                      {project.title.en}
+<section id="projects" class="pt-16 sm:pt-20 px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-3xl">
+    {
+      groups.map((group) => (
+        <div class="idx-group scroll-fade">
+          <h2 class="idx-heading">
+            <span data-locale-es>{group.heading.es}</span>
+            <span data-locale-en class="hidden">{group.heading.en}</span>
+          </h2>
+          <ul class="idx-list">
+            {visibleProjects
+              .filter((p) => p.indexGroup === group.key)
+              .map((project) => (
+                <li data-peek={project.media?.[0]?.src}>
+                  <span class="idx-year">{project.year}</span>
+                  <span class="idx-what">
+                    <a class="idx-title" href={`/projects/${project.caseStudySlug}`}>
+                      <span data-locale-es>{project.title.es}</span>
+                      <span data-locale-en class="hidden">{project.title.en}</span>
+                    </a>
+                    <span class="idx-sep">:</span>{' '}
+                    <span class="idx-blurb">
+                      <span data-locale-es>{project.description.es}</span>
+                      <span data-locale-en class="hidden">{project.description.en}</span>
                     </span>
-                  </h3>
-                  {project.featured && (
-                    <span class="featured-badge px-2 py-0.5 rounded-md text-xs font-mono font-bold uppercase tracking-widest shrink-0">
-                      <span data-locale-es>Destacado</span>
-                      <span data-locale-en class="hidden">
-                        Featured
+                    {project.status && (
+                      <span class="idx-status">
+                        {' — '}
+                        <span data-locale-es>{project.status.es}</span>
+                        <span data-locale-en class="hidden">{project.status.en}</span>
                       </span>
-                    </span>
-                  )}
-                  {project.inDevelopment && (
-                    <span class="wip-badge px-2 py-0.5 rounded-md text-xs font-mono font-bold uppercase tracking-widest shrink-0">
-                      <span data-locale-es>En desarrollo</span>
-                      <span data-locale-en class="hidden">
-                        In development
-                      </span>
-                    </span>
-                  )}
-                </div>
-
-                {/* Role */}
-                <p class="text-xs mb-3" style="color: var(--color-text-muted);">
-                  <span
-                    class="font-mono font-semibold"
-                    style="color: var(--color-accent);"
-                    data-i18n-key="projects.role"
-                  >
-                    Mi rol:
-                  </span>{' '}
-                  <span data-locale-es>{project.role.es}</span>
-                  <span data-locale-en class="hidden">
-                    {project.role.en}
+                    )}
+                    {project.demo && (
+                      <a
+                        class="idx-live"
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span data-locale-es>en vivo ↗</span>
+                        <span data-locale-en class="hidden">live ↗</span>
+                      </a>
+                    )}
+                    {project.media?.[0] && (
+                      <img
+                        class="idx-thumb"
+                        src={project.media[0].src}
+                        alt={project.media[0].alt.es}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
                   </span>
-                </p>
-
-                {/* Description */}
-                <p
-                  class="text-sm leading-relaxed mb-4"
-                  style="color: var(--color-text-secondary);"
-                >
-                  <span data-locale-es>{project.description.es}</span>
-                  <span data-locale-en class="hidden">
-                    {project.description.en}
+                </li>
+              ))}
+            {group.key === 'capo' && (
+              <li>
+                <span class="idx-year">
+                  <span data-locale-es>siempre</span>
+                  <span data-locale-en class="hidden">always</span>
+                </span>
+                <span class="idx-what">
+                  <span class="idx-title-plain">
+                    <span data-locale-es>Stack de cabecera</span>
+                    <span data-locale-en class="hidden">Daily stack</span>
                   </span>
-                </p>
-
-                {/* Highlights */}
-                <div class="mb-5">
-                  <p
-                    class="text-xs font-mono font-semibold uppercase tracking-wider mb-2"
-                    style="color: var(--color-accent);"
-                    data-i18n-key="projects.highlights"
-                  >
-                    Destacados
-                  </p>
-                  <ul data-locale-es class="space-y-1.5">
-                    {project.highlights.es.map((h) => (
-                      <li
-                        class="text-sm flex items-start gap-2"
-                        style="color: var(--color-text-secondary);"
-                      >
-                        <span
-                          class="mt-0.5 shrink-0"
-                          style="color: var(--color-accent);"
-                        >
-                          &#x2713;
-                        </span>
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                  <ul data-locale-en class="hidden space-y-1.5">
-                    {project.highlights.en.map((h) => (
-                      <li
-                        class="text-sm flex items-start gap-2"
-                        style="color: var(--color-text-secondary);"
-                      >
-                        <span
-                          class="mt-0.5 shrink-0"
-                          style="color: var(--color-accent);"
-                        >
-                          &#x2713;
-                        </span>
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Separator */}
-                <hr class="mb-4" style="border-color: var(--color-border);" />
-
-                {/* Tech badges */}
-                <div class="flex flex-wrap gap-1.5 mb-5">
-                  {project.stack.map((tech) => (
-                    <span class="chip">{tech}</span>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div class="flex flex-wrap gap-3">
-                  {project.caseStudySlug && (
-                    <a
-                      href={`/projects/${project.caseStudySlug}`}
-                      class="btn-primary"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                      <span data-locale-es>Ver case study</span>
-                      <span data-locale-en class="hidden">
-                        Read case study
-                      </span>
-                    </a>
-                  )}
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn-secondary"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                      </svg>
-                      <span data-locale-es>Ver código</span>
-                      <span data-locale-en class="hidden">
-                        View code
-                      </span>
-                    </a>
-                  )}
-                  {!project.demo && project.demoNote && (
-                    <span class="demo-note">
-                      <span data-locale-es>{project.demoNote.es}</span>
-                      <span data-locale-en class="hidden">
-                        {project.demoNote.en}
-                      </span>
-                    </span>
-                  )}
-                  {project.demo && (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn-primary"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                      <span data-locale-es>Ver demo</span>
-                      <span data-locale-en class="hidden">
-                        View demo
-                      </span>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+                  <span class="idx-sep">:</span>{' '}
+                  <span class="idx-blurb">
+                    TypeScript, React/Next.js, Astro, Go, Node, PostgreSQL,
+                    Supabase, Docker.
+                  </span>
+                </span>
+              </li>
+            )}
+          </ul>
+        </div>
+      ))
+    }
   </div>
+
+  {/* Preview flotante para desktop (se oculta en touch/pantallas angostas) */}
+  <div class="idx-peek" aria-hidden="true"><img src="" alt="" /></div>
 </section>
 
 <style>
-  /* ---- Card base ---- */
-  .project-card {
-    background-color: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease,
-      border-color 0.3s ease;
+  .idx-group {
+    margin-top: 3.5rem;
   }
 
-  /* ---- Accent line top ---- */
-  .accent-line {
-    height: 3px;
-    background: linear-gradient(
-      90deg,
-      var(--color-accent),
-      var(--color-accent-hover),
-      transparent
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  .idx-heading {
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 1.125rem;
   }
 
-  .project-card:hover .accent-line {
-    opacity: 1;
+  .idx-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.875rem;
   }
 
-  /* ---- Glow hover (color-mix sigue al accent del tema activo) ---- */
-  .project-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--color-accent);
-    box-shadow:
-      0 0 20px color-mix(in srgb, var(--color-accent) 12%, transparent),
-      0 0 40px color-mix(in srgb, var(--color-accent) 6%, transparent),
-      0 20px 40px -12px color-mix(in srgb, var(--color-accent) 10%, transparent);
+  .idx-list li {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: baseline;
   }
 
-  /* ---- Dot pattern on image area ---- */
-  .project-image-wrapper {
-    background-color: var(--color-bg-secondary);
+  .idx-year {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
   }
 
-  .dot-pattern {
-    background-image: radial-gradient(
-      circle,
-      var(--color-text-muted) 1px,
-      transparent 1px
-    );
-    background-size: 16px 16px;
-    opacity: 0.25;
+  .idx-what {
+    max-width: 62ch;
+    line-height: 1.65;
   }
 
-  /* ---- Featured badge ---- */
-  .featured-badge {
-    background-color: var(--color-accent);
-    color: var(--color-accent-contrast);
+  .idx-title {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
   }
 
-  /* ---- In-development badge (soft tint: status note, no compite con Destacado) ---- */
-  .wip-badge {
-    border: 1px solid var(--color-border);
-    background-color: var(--color-accent-light);
+  .idx-title:hover {
     color: var(--color-accent);
   }
 
-  /* Chips y botones: clases compartidas .chip / .btn-* de global.css */
+  .idx-title-plain {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .idx-sep {
+    color: var(--color-text-muted);
+  }
+
+  .idx-blurb {
+    color: var(--color-text-secondary);
+  }
+
+  .idx-status {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .idx-live {
+    margin-left: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .idx-live:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Miniatura mobile: el indice no puede ser puro texto en el celular. */
+  .idx-thumb {
+    display: none;
+  }
+
+  @media (max-width: 639px) {
+    .idx-list li {
+      grid-template-columns: 1fr;
+      gap: 0.125rem;
+    }
+
+    .idx-year {
+      text-align: left;
+      font-size: 0.75rem;
+    }
+
+    .idx-thumb {
+      display: block;
+      width: 100%;
+      max-width: 22rem;
+      height: auto;
+      margin-top: 0.625rem;
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+    }
+  }
+
+  /* Preview flotante (solo pointer fino y pantallas anchas) */
+  .idx-peek {
+    position: fixed;
+    right: 1.75rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(1.2deg) scale(0.98);
+    width: min(28vw, 360px);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: var(--color-bg-card);
+    box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 30;
+  }
+
+  .idx-peek.on {
+    opacity: 1;
+    transform: translateY(-50%) rotate(0deg) scale(1);
+  }
+
+  .idx-peek img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 1180px), (pointer: coarse) {
+    .idx-peek {
+      display: none;
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
-    .project-card:hover {
-      transform: none;
+    .idx-peek {
+      transition: none;
+      transform: translateY(-50%);
     }
   }
 </style>
 
 <script>
   import type { Locale } from '@i18n/store';
-  import { ui } from '@i18n/ui';
 
   function updateProjectLocale(locale: Locale) {
     const esElements = document.querySelectorAll<HTMLElement>(
@@ -374,60 +267,32 @@ const visibleProjects = projects.filter((p) => p.visible !== false);
       esElements.forEach((el) => el.classList.remove('hidden'));
       enElements.forEach((el) => el.classList.add('hidden'));
     }
-
-    // Update UI strings with data-i18n-key
-    const i18nElements = document.querySelectorAll<HTMLElement>(
-      '#projects [data-i18n-key]',
-    );
-    i18nElements.forEach((el) => {
-      const key = el.dataset.i18nKey as keyof (typeof ui)['es'];
-      if (key && ui[locale]?.[key]) {
-        const span = el.querySelector('span');
-        if (span) {
-          span.textContent = ui[locale][key];
-        } else {
-          el.textContent = ui[locale][key];
-        }
-      }
-    });
   }
 
-  // Intersection Observer for scroll animations
-  function initScrollAnimations() {
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
-
-    if (prefersReducedMotion) {
-      document
-        .querySelectorAll('.scroll-fade')
-        .forEach((el) => el.classList.add('visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    document
-      .querySelectorAll('.scroll-fade')
-      .forEach((el) => observer.observe(el));
-  }
-
-  // Init
   const initialLocale = (document.documentElement.lang || 'es') as Locale;
   updateProjectLocale(initialLocale);
-  initScrollAnimations();
 
   window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
     updateProjectLocale(e.detail);
   }) as EventListener);
+
+  // Hover preview: la captura del proyecto flota al margen derecho.
+  const peek = document.querySelector<HTMLElement>('.idx-peek');
+  const peekImg = peek?.querySelector('img');
+  if (peek && peekImg) {
+    let hideTimer = 0;
+    document
+      .querySelectorAll<HTMLElement>('#projects li[data-peek]')
+      .forEach((li) => {
+        if (!li.dataset.peek) return;
+        li.addEventListener('mouseenter', () => {
+          window.clearTimeout(hideTimer);
+          peekImg.src = li.dataset.peek ?? '';
+          peek.classList.add('on');
+        });
+        li.addEventListener('mouseleave', () => {
+          hideTimer = window.setTimeout(() => peek.classList.remove('on'), 80);
+        });
+      });
+  }
 </script>

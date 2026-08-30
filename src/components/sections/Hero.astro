@@ -1,290 +1,98 @@
 ---
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-  <!-- Particle canvas -->
-  <canvas
-    id="hero-canvas"
-    class="absolute inset-0 w-full h-full"
-    aria-hidden="true"
-  ></canvas>
-
-  <!-- Radial accent glow behind the name -->
-  <div class="hero-glow" aria-hidden="true"></div>
-
-  <!-- Content -->
-  <div class="relative z-10 mx-auto max-w-4xl text-center">
-    <p
-      class="hero-fade font-mono text-sm mb-4"
-      style="color: var(--color-accent); --delay: 0.1s;"
-      data-i18n-key="hero.greeting"
-    >
-      Hola, soy Facundo
-    </p>
-    <h1
-      class="hero-fade text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight mb-6"
-      style="color: var(--color-text-primary); --delay: 0.3s;"
-      data-i18n-key="hero.title"
-    >
-      Fullstack Developer
+<section id="hero" class="pt-28 sm:pt-36 px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-3xl">
+    <h1 class="masthead-name hero-fade" style="--delay: 0.05s;">
+      Facundo Cornejo<span class="masthead-dot">.</span>
     </h1>
-    <p
-      class="hero-fade text-lg sm:text-xl max-w-2xl mx-auto mb-8"
-      style="color: var(--color-text-secondary); --delay: 0.5s;"
-      data-i18n-key="hero.subtitle"
-    >
-      Construyo productos digitales con TypeScript, React y un workflow AI-augmented.
+    <p class="label hero-fade" style="--delay: 0.15s; margin-top: 0.5rem;">
+      <span data-locale-es>Fullstack developer · Paraná, Argentina</span>
+      <span data-locale-en class="hidden">Fullstack developer · Paraná, Argentina</span>
     </p>
-    <p
-      class="hero-fade font-mono text-sm mb-8"
-      style="color: var(--color-text-muted); --delay: 0.6s;"
-      data-i18n-key="hero.location"
-    >
-      Paraná, Argentina · Remoto · Ciudadanía UE 🇪🇺
-    </p>
-    <div class="hero-fade flex flex-col sm:flex-row items-center justify-center gap-4" style="--delay: 0.7s;">
-      <a href="#projects" class="btn-primary btn-lg" data-i18n-key="hero.cta.projects">
-        Ver proyectos
-      </a>
-      <a href="#contact" class="btn-secondary btn-lg" data-i18n-key="hero.cta.contact">
-        Contactame
-      </a>
+
+    <div class="masthead-intro hero-fade" style="--delay: 0.28s;">
+      <p>
+        <span data-locale-es>
+          Hago <strong>sistemas que atienden mostradores reales</strong>: un ERP
+          para una tienda de suplementos, un punto de venta para un comercio de
+          barrio, el catálogo de una concesionaria. Software que cobra ventas,
+          cuida stock y responde preguntas — hoy, en el negocio de alguien.
+        </span>
+        <span data-locale-en class="hidden">
+          I build <strong>systems that run real shop counters</strong>: an ERP
+          for a supplements store, a point of sale for a neighbourhood shop, a
+          car dealership's catalog. Software that charges sales, keeps stock
+          honest and answers questions — today, inside someone's business.
+        </span>
+      </p>
+      <p>
+        <span data-locale-es>
+          Me recibí en la UTN, trabajo freelance y en equipo, y me destaco en el
+          relevamiento: traduzco cómo opera un negocio a software que lo
+          resuelve. Esta página es un índice: todo lo que construí, en una sola
+          lista. Tocá cualquier cosa y te lleva al fondo del asunto.
+        </span>
+        <span data-locale-en class="hidden">
+          I graduated from UTN, work freelance and in teams, and my edge is
+          discovery: I translate how a business operates into software that
+          solves it. This page is an index: everything I've built, in a single
+          list. Click anything and it takes you to the bottom of the matter.
+        </span>
+      </p>
     </div>
   </div>
 </section>
 
 <style>
-  .hero-glow {
-    position: absolute;
-    top: 38%;
-    left: 50%;
-    width: min(90vw, 720px);
-    height: min(60vh, 480px);
-    transform: translate(-50%, -50%);
-    background: radial-gradient(
-      ellipse at center,
-      color-mix(in srgb, var(--color-accent) 22%, transparent) 0%,
-      transparent 70%
-    );
-    filter: blur(40px);
-    pointer-events: none;
-    z-index: 0;
+  .masthead-name {
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: 0.005em;
+    color: var(--color-text-primary);
   }
 
-  :root[data-theme='dark'] .hero-glow {
-    background: radial-gradient(
-      ellipse at center,
-      color-mix(in srgb, var(--color-accent) 32%, transparent) 0%,
-      transparent 70%
-    );
+  .masthead-dot {
+    color: var(--color-accent);
+  }
+
+  .masthead-intro {
+    margin-top: 2.25rem;
+    max-width: 62ch;
+    display: grid;
+    gap: 1rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+
+  .masthead-intro strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
   }
 </style>
 
 <script>
-  (function () {
-    const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+  import type { Locale } from '@i18n/store';
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+  function updateHeroLocale(locale: Locale) {
+    const esElements = document.querySelectorAll<HTMLElement>('#hero [data-locale-es]');
+    const enElements = document.querySelectorAll<HTMLElement>('#hero [data-locale-en]');
 
-    // --- Config ---
-    const CONNECTION_DISTANCE = 120;
-    const MOUSE_RADIUS = 150;
-    const MOUSE_FORCE = 0.8;
-    const BASE_SPEED = 0.3;
-
-    // --- State ---
-    let width = 0;
-    let height = 0;
-    let mouseX = -9999;
-    let mouseY = -9999;
-    let accentRgb = { r: 15, g: 118, b: 110 };
-
-    interface Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
+    if (locale === 'en') {
+      esElements.forEach((el) => el.classList.add('hidden'));
+      enElements.forEach((el) => el.classList.remove('hidden'));
+    } else {
+      esElements.forEach((el) => el.classList.remove('hidden'));
+      enElements.forEach((el) => el.classList.add('hidden'));
     }
+  }
 
-    let particles: Particle[] = [];
+  const initialLocale = (document.documentElement.lang || 'es') as Locale;
+  updateHeroLocale(initialLocale);
 
-    function parseAccentColor() {
-      const raw = getComputedStyle(document.documentElement)
-        .getPropertyValue('--color-accent')
-        .trim();
-
-      // Try hex parse
-      const hex = raw.replace('#', '');
-      if (/^[0-9a-fA-F]{6}$/.test(hex)) {
-        accentRgb = {
-          r: parseInt(hex.slice(0, 2), 16),
-          g: parseInt(hex.slice(2, 4), 16),
-          b: parseInt(hex.slice(4, 6), 16),
-        };
-        return;
-      }
-      if (/^[0-9a-fA-F]{3}$/.test(hex)) {
-        accentRgb = {
-          r: parseInt(hex[0] + hex[0], 16),
-          g: parseInt(hex[1] + hex[1], 16),
-          b: parseInt(hex[2] + hex[2], 16),
-        };
-        return;
-      }
-
-      // Try rgb() parse
-      const rgbMatch = raw.match(/(\d+),\s*(\d+),\s*(\d+)/);
-      if (rgbMatch) {
-        accentRgb = {
-          r: parseInt(rgbMatch[1]),
-          g: parseInt(rgbMatch[2]),
-          b: parseInt(rgbMatch[3]),
-        };
-      }
-    }
-
-    function createParticle(): Particle {
-      const angle = Math.random() * Math.PI * 2;
-      return {
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: Math.cos(angle) * BASE_SPEED,
-        vy: Math.sin(angle) * BASE_SPEED,
-        radius: Math.random() * 1.5 + 1,
-      };
-    }
-
-    function resize() {
-      const section = canvas.parentElement!;
-      width = section.offsetWidth;
-      height = section.offsetHeight;
-
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const target = window.innerWidth < 768 ? 30 : 60;
-      if (particles.length === 0) {
-        particles = Array.from({ length: target }, createParticle);
-      }
-    }
-
-    function animate() {
-      const { r, g, b } = accentRgb;
-      ctx!.clearRect(0, 0, width, height);
-
-      for (const p of particles) {
-        // Mouse repulsion
-        const dx = p.x - mouseX;
-        const dy = p.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_RADIUS && dist > 0) {
-          const force = (1 - dist / MOUSE_RADIUS) * MOUSE_FORCE;
-          p.vx += (dx / dist) * force;
-          p.vy += (dy / dist) * force;
-        }
-
-        // Damping
-        p.vx *= 0.98;
-        p.vy *= 0.98;
-
-        // Ensure minimum speed
-        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed < BASE_SPEED * 0.5) {
-          const angle = Math.atan2(p.vy, p.vx);
-          p.vx = Math.cos(angle) * BASE_SPEED * 0.5;
-          p.vy = Math.sin(angle) * BASE_SPEED * 0.5;
-        }
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap around edges
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
-        if (p.y < -10) p.y = height + 10;
-        if (p.y > height + 10) p.y = -10;
-
-        // Draw particle
-        ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(${r},${g},${b},0.6)`;
-        ctx!.fill();
-      }
-
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < CONNECTION_DISTANCE) {
-            const opacity = (1 - dist / CONNECTION_DISTANCE) * 0.3;
-            ctx!.beginPath();
-            ctx!.moveTo(particles[i].x, particles[i].y);
-            ctx!.lineTo(particles[j].x, particles[j].y);
-            ctx!.strokeStyle = `rgba(${r},${g},${b},${opacity})`;
-            ctx!.lineWidth = 0.5;
-            ctx!.stroke();
-          }
-        }
-      }
-
-      rafId = requestAnimationFrame(animate);
-    }
-
-    // --- Init ---
-    let rafId = 0;
-    parseAccentColor();
-    resize();
-    animate();
-
-    window.addEventListener('resize', resize);
-
-    // No quemar CPU dibujando particulas en una pestania que nadie ve.
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        cancelAnimationFrame(rafId);
-      } else {
-        rafId = requestAnimationFrame(animate);
-      }
-    });
-
-    // Update accent color when theme changes
-    const observer = new MutationObserver(() => parseAccentColor());
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['data-theme'],
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    });
-
-    canvas.addEventListener('mouseleave', () => {
-      mouseX = -9999;
-      mouseY = -9999;
-    });
-
-    canvas.addEventListener('touchmove', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const touch = e.touches[0];
-      mouseX = touch.clientX - rect.left;
-      mouseY = touch.clientY - rect.top;
-    }, { passive: true });
-
-    canvas.addEventListener('touchend', () => {
-      mouseX = -9999;
-      mouseY = -9999;
-    });
-  })();
+  window.addEventListener('locale-change', ((e: CustomEvent<Locale>) => {
+    updateHeroLocale(e.detail);
+  }) as EventListener);
 </script>
