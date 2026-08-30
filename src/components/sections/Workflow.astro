@@ -1,7 +1,7 @@
 ---
 ---
 
-<section id="workflow" class="py-24 px-4">
+<section id="workflow" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-5xl">
     <p class="section-eyebrow scroll-fade" data-i18n-key="workflow.eyebrow">03 — Proceso</p>
     <h2
@@ -52,19 +52,12 @@
 </section>
 
 <style>
+  /* Las cards no son clickeables: sin hover, la jerarquia la da el contenido. */
   .workflow-card {
     padding: 1.75rem;
-    border-radius: 0.875rem;
+    border-radius: 0.75rem;
     border: 1px solid var(--color-border);
     background-color: var(--color-bg-card);
-    transition:
-      border-color 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .workflow-card:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-4px);
   }
 
   .workflow-num {
@@ -74,37 +67,41 @@
     font-weight: 700;
     color: var(--color-accent);
     margin-bottom: 0.75rem;
-    opacity: 0.85;
   }
 
   .workflow-card-title {
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: var(--color-text-primary);
     margin-bottom: 0.5rem;
   }
 
   .workflow-card-body {
-    font-size: 0.9375rem;
+    font-size: 1rem;
     line-height: 1.65;
     color: var(--color-text-secondary);
   }
 
   .workflow-example {
     margin-top: 2rem;
-    padding: 1rem 1.25rem;
-    border-left: 3px solid var(--color-accent);
-    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.75rem;
     background-color: var(--color-accent-light);
-    font-size: 0.9375rem;
+    font-size: 1rem;
     line-height: 1.65;
     color: var(--color-text-secondary);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .workflow-card:hover {
-      transform: none;
-    }
+  /*
+   * Marca de "caso real" via ::before: el contenido del parrafo se reemplaza
+   * por textContent al cambiar idioma, asi que la decoracion no puede ser un
+   * hijo del elemento.
+   */
+  .workflow-example::before {
+    content: '\00BB  ';
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--color-accent);
   }
 </style>
 

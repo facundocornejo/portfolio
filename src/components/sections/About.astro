@@ -24,7 +24,7 @@ const aiTools = [
 ];
 ---
 
-<section id="about" class="py-24 px-4" style="background-color: var(--color-bg-secondary);">
+<section id="about" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8" style="background-color: var(--color-bg-secondary);">
   <div class="mx-auto max-w-5xl">
     <p class="section-eyebrow scroll-fade" data-i18n-key="about.eyebrow">02 — Perfil</p>
     <h2
@@ -139,6 +139,7 @@ const aiTools = [
     text-decoration-color: var(--color-accent);
   }
 
+  /* Chips informativos: estaticos a proposito, no son botones. */
   .about-badge {
     display: inline-block;
     padding: 0.3rem 0.75rem;
@@ -149,17 +150,6 @@ const aiTools = [
     border: 1px solid var(--color-accent);
     color: var(--color-accent);
     background-color: transparent;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.15s ease;
-    cursor: default;
-  }
-
-  .about-badge:hover {
-    background-color: var(--color-accent);
-    color: white;
-    transform: translateY(-1px);
   }
 
   .stack-item {
@@ -171,35 +161,11 @@ const aiTools = [
     border: 1px solid var(--color-border);
     background-color: var(--color-bg-card);
     color: var(--color-text-secondary);
-    transition:
-      border-color 0.2s ease,
-      color 0.2s ease,
-      transform 0.15s ease;
-    cursor: default;
-  }
-
-  .stack-item:hover {
-    border-color: var(--color-accent);
-    color: var(--color-text-primary);
-    transform: translateY(-2px);
   }
 
   .stack-icon {
     opacity: 0.7;
-    transition: opacity 0.2s ease;
     filter: grayscale(100%);
-  }
-
-  .stack-item:hover .stack-icon {
-    opacity: 1;
-    filter: grayscale(0%);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .about-badge:hover,
-    .stack-item:hover {
-      transform: none;
-    }
   }
 </style>
 

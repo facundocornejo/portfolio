@@ -43,20 +43,10 @@
       Paraná, Argentina · Remoto · Ciudadanía UE 🇪🇺
     </p>
     <div class="hero-fade flex flex-col sm:flex-row items-center justify-center gap-4" style="--delay: 0.7s;">
-      <a
-        href="#projects"
-        class="inline-flex items-center px-6 py-3 rounded-lg text-sm font-medium text-white transition-colors duration-200"
-        style="background-color: var(--color-accent);"
-        data-i18n-key="hero.cta.projects"
-      >
+      <a href="#projects" class="btn-primary btn-lg" data-i18n-key="hero.cta.projects">
         Ver proyectos
       </a>
-      <a
-        href="#contact"
-        class="inline-flex items-center px-6 py-3 rounded-lg text-sm font-medium border transition-colors duration-200"
-        style="color: var(--color-text-primary); border-color: var(--color-border);"
-        data-i18n-key="hero.cta.contact"
-      >
+      <a href="#contact" class="btn-secondary btn-lg" data-i18n-key="hero.cta.contact">
         Contactame
       </a>
     </div>
@@ -111,7 +101,7 @@
     let height = 0;
     let mouseX = -9999;
     let mouseY = -9999;
-    let accentRgb = { r: 109, g: 40, b: 217 };
+    let accentRgb = { r: 15, g: 118, b: 110 };
 
     interface Particle {
       x: number;
@@ -247,15 +237,25 @@
         }
       }
 
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     }
 
     // --- Init ---
+    let rafId = 0;
     parseAccentColor();
     resize();
     animate();
 
     window.addEventListener('resize', resize);
+
+    // No quemar CPU dibujando particulas en una pestania que nadie ve.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafId);
+      } else {
+        rafId = requestAnimationFrame(animate);
+      }
+    });
 
     // Update accent color when theme changes
     const observer = new MutationObserver(() => parseAccentColor());

@@ -26,8 +26,7 @@ export default function LanguageToggle() {
       type="button"
       onClick={toggle}
       aria-label={`Switch to ${locale === 'es' ? 'English' : 'Español'}`}
-      className="px-2 py-1 rounded-lg text-sm font-mono font-medium transition-colors duration-200"
-      style={{ color: 'var(--color-text-secondary)' }}
+      className="icon-btn text-sm font-mono font-medium"
     >
       {locale === 'es' ? 'EN' : 'ES'}
     </button>

@@ -40,8 +40,8 @@ export default function MobileMenu() {
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
-        className="p-2 rounded-lg"
-        style={{ color: 'var(--color-text-primary)' }}
+        aria-controls="mobile-menu-panel"
+        className="icon-btn"
       >
         <svg
           className="size-6"
@@ -74,6 +74,10 @@ export default function MobileMenu() {
           onClick={() => setIsOpen(false)}
         >
           <nav
+            id="mobile-menu-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
             className="absolute right-0 top-0 h-full w-64 p-8 flex flex-col gap-6"
             style={{
               backgroundColor: 'var(--color-bg-card)',
@@ -120,8 +124,7 @@ export default function MobileMenu() {
                     }
                   }
                 }}
-                className="text-lg font-medium transition-colors duration-200"
-                style={{ color: 'var(--color-text-primary)' }}
+                className="mobile-nav-link text-lg font-medium transition-colors duration-200"
               >
                 {t(locale, link.key)}
               </a>

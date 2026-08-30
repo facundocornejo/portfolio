@@ -1,7 +1,7 @@
 ---
 ---
 
-<section id="contact" class="py-24 px-4">
+<section id="contact" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-2xl text-center">
     <p class="section-eyebrow scroll-fade" data-i18n-key="contact.eyebrow">04 — Hablemos</p>
     <h2
@@ -75,7 +75,7 @@
         ></textarea>
       </div>
 
-      <button type="submit" class="contact-submit" id="contact-submit">
+      <button type="submit" class="btn-primary contact-submit" id="contact-submit">
         <span class="submit-text" data-i18n-key="contact.form.send">Enviar mensaje</span>
       </button>
 
@@ -150,28 +150,32 @@
 </section>
 
 <style>
+  /*
+   * El formulario es LA via de contacto; copiar el mail es la alternativa.
+   * Por eso este boton tiene peso secundario (borde, no relleno accent).
+   */
   .contact-email-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.875rem 2rem;
-    border-radius: 0.75rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
     font-family: var(--font-mono);
-    background-color: var(--color-accent);
-    color: white;
+    border: 1px solid color-mix(in srgb, var(--color-text-muted) 45%, var(--color-border));
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition:
-      background-color 0.2s ease,
-      transform 0.15s ease,
-      box-shadow 0.2s ease;
+      border-color 0.2s ease,
+      color 0.2s ease,
+      background-color 0.2s ease;
   }
 
   .contact-email-btn:hover {
-    background-color: var(--color-accent-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background-color: var(--color-accent-light);
   }
 
   .contact-social {
@@ -197,7 +201,7 @@
   .contact-social:hover {
     border-color: var(--color-accent);
     color: var(--color-accent);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     background-color: var(--color-accent-light);
   }
 
@@ -226,11 +230,11 @@
   .form-input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border-radius: 0.625rem;
+    border-radius: 0.5rem;
     border: 1px solid var(--color-border);
     background-color: var(--color-bg-card);
     color: var(--color-text-primary);
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-family: inherit;
     transition:
       border-color 0.2s ease,
@@ -239,13 +243,12 @@
 
   .form-input::placeholder {
     color: var(--color-text-muted);
-    opacity: 0.6;
   }
 
   .form-input:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 30%, transparent);
   }
 
   textarea.form-input {
@@ -253,24 +256,10 @@
     min-height: 7rem;
   }
 
+  /* Geometria y colores vienen de .btn-primary (global). */
   .contact-submit {
     align-self: flex-start;
-    padding: 0.75rem 1.75rem;
-    border-radius: 0.625rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    background-color: var(--color-accent);
-    color: white;
     cursor: pointer;
-    transition:
-      background-color 0.2s ease,
-      transform 0.15s ease,
-      opacity 0.2s ease;
-  }
-
-  .contact-submit:hover {
-    background-color: var(--color-accent-hover);
-    transform: translateY(-2px);
   }
 
   .contact-submit:disabled {
@@ -289,13 +278,11 @@
   }
 
   .form-status.is-error {
-    color: #ef4444;
+    color: var(--color-error);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .contact-email-btn:hover,
-    .contact-social:hover,
-    .contact-submit:hover {
+    .contact-social:hover {
       transform: none;
     }
   }

@@ -84,6 +84,7 @@ import MobileMenu from './MobileMenu.tsx';
     color: var(--color-accent);
   }
 
+  /* El subrayado marca SOLO la seccion activa; el hover se distingue por color. */
   .nav-link::after {
     content: '';
     position: absolute;
@@ -93,10 +94,6 @@ import MobileMenu from './MobileMenu.tsx';
     height: 2px;
     background-color: var(--color-accent);
     transition: width 0.2s ease;
-  }
-
-  .nav-link:hover::after {
-    width: 100%;
   }
 
   .nav-link.active {
