@@ -24,18 +24,23 @@ npm run preview   # Preview del build local
 
 ## Architecture
 
-Single page (`src/pages/index.astro`) con secciones: Hero, Proyectos, Sobre Mí, Contacto. Página separada en `src/pages/resume.astro`.
+**Diseño "El Índice"** (adoptado 29/08/2026): la home es una página-índice tipográfica
+(inspiración worrydream.com) — Masthead con intro conversacional, índice de proyectos
+agrupado (En producción / En camino / Abajo del capó) con hover-preview en desktop y
+miniaturas en mobile, "Cómo trabajo" y "Encontrame" (mail + form Netlify). Cada case
+study tiene banner con acento propio (`accent` en case-studies.ts) y portada arriba.
+Tipografía: Petrona (display) + Public Sans (body) + Fragment Mono. Temas: tinta
+petróleo (dark) / papel cálido (light), ámbar como acento — contraste AA validado.
 
 ```
 src/
 ├── components/
-│   ├── sections/      # Secciones de la home: Hero, Projects, About, Contact, Workflow
-│   ├── Header.astro   # Header + nav
+│   ├── sections/      # Home: Hero (masthead+intro), Projects (índice), Workflow (cómo trabajo), Contact (encontrame)
+│   ├── Header.astro   # Slim: nombre + CV + toggles (el índice ES la navegación)
 │   ├── Footer.astro
 │   ├── ThemeToggle.astro
-│   ├── LanguageToggle.tsx  # Isla React
-│   └── MobileMenu.tsx      # Isla React
-├── layouts/           # Layout principal (Layout.astro)
+│   └── LanguageToggle.tsx  # Isla React
+├── layouts/           # Layout principal (Layout.astro) — incluye el observer de .scroll-fade
 ├── pages/
 │   ├── index.astro    # Home (single page)
 │   ├── resume.astro   # Resume dedicado

@@ -154,7 +154,7 @@ const skills = {
         {/* Experience */}
         <div class="mb-12">
           <h2
-            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            class="resume-h2 mb-6"
             style="color: var(--color-accent);"
             data-i18n-key="resume.experience"
           >
@@ -197,7 +197,7 @@ const skills = {
         {/* Featured Project */}
         <div class="mb-12">
           <h2
-            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            class="resume-h2 mb-6"
             style="color: var(--color-accent);"
           >
             <span data-locale-es>Proyecto Destacado</span>
@@ -225,7 +225,7 @@ const skills = {
         {/* Education */}
         <div class="mb-12">
           <h2
-            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            class="resume-h2 mb-6"
             style="color: var(--color-accent);"
             data-i18n-key="resume.education"
           >
@@ -266,7 +266,7 @@ const skills = {
         {/* Skills */}
         <div>
           <h2
-            class="text-xs font-mono font-semibold uppercase tracking-wider mb-6"
+            class="resume-h2 mb-6"
             style="color: var(--color-accent);"
             data-i18n-key="resume.skills"
           >
@@ -292,6 +292,14 @@ const skills = {
 </Layout>
 
 <style>
+  .resume-h2 {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
   .resume-download-btn {
     display: inline-flex;
     align-items: center;
