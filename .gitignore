@@ -30,3 +30,6 @@ portfolio-fixes.md
 portfolio-fixes-v2.md
 tasks/
 .atl/
+
+# contrast before/after captures — heavy images, kept local (README + targets are tracked)
+screenshots-contraste/**/*.png
